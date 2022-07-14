@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { blogPosts } from '../../lib/data'
 
 export default function BlogPage({ title, date, content }) {
@@ -10,8 +11,13 @@ export default function BlogPage({ title, date, content }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>{title}</h1>
-        <div>{date}</div>
+        <div>
+          <Link href="/">
+            <a>Back</a>
+          </Link>
+        </div>
+        <h1 className="text-4xl font-bold">{title}</h1>
+        <div className="text-sm">{date}</div>
         <div>{content}</div>
       </main>
     </div>
