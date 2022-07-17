@@ -16,11 +16,11 @@ export default function Home({ posts }) {
           <div key={item.slug} className="py-3">
             <div>
               <Link href={`/blog/${item.slug}`}>
-                <a className="text-2xl font-bold">{item.title}</a>
+                <a className="text-2xl font-bold text-gray-600">{item.title}</a>
               </Link>
             </div>
-            <div className="text-sm">{item.date.toString()}</div>
-            <div>{item.summary}</div>
+            <div className="text-sm text-gray-600">{item.date}</div>
+            <div className="text-gray-500">{item.summary}</div>
           </div>
         ))}
       </main>
