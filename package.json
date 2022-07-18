@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@splitbee/web": "^0.3.0",
     "gray-matter": "^4.0.3",
     "next": "12.2.2",
     "next-mdx-remote": "^4.0.3",
