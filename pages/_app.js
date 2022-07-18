@@ -6,10 +6,11 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     splitbee.init({
       scriptUrl: '/bee.js',
+      apiUrl: '/_hive',
     })
   })
   return (
-    <div className="mx-auto max-w-2xl px-5 py-8">
+    <div className="mx-auto max-w-2xl py-8">
       <h1 className="text-lg mb-10">
         <Link href="/">
           <a>ShioY&apos;s Blog</a>
