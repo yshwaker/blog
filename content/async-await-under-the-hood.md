@@ -1,12 +1,12 @@
 ---
-title: async/await是如何实现的？
+title: async/await 是如何实现的？
 date: '2022-07-17'
-summary: ES2017引入了`Async/Await`语法，使得我们的异步代码看起来更像是同步代码，隐藏了成堆的回调函数。但是 Javascript 引擎内部是如何实现的呢？
+summary: ES2017 引入了`Async/Await`语法，使得我们的异步代码看起来更像是同步代码，隐藏了成堆的回调函数。但是 Javascript 引擎内部是如何实现的呢？
 ---
 
 
 
-ES2017引入了`Async/Await`语法，使得我们的异步代码看起来更像是同步代码，隐藏了成堆的回调函数。但是 Javascript 引擎内部是如何实现的呢？
+ES2017 引入了`Async/Await`语法，使得我们的异步代码看起来更像是同步代码，隐藏了成堆的回调函数。但是 Javascript 引擎内部是如何实现的呢？
 
 ## 先来看看 Babel 的实现
 
@@ -114,7 +114,7 @@ function _asyncToGenerator(fn) {
 
 ## 浏览器（V8）实际是如何处理的？
 
-根据 V8 官方的 [blog](https://v8.dev/blog/fast-async#async-functions),在 Node.js 12 的一系列优化后，`async`函数在内部被转化成了
+根据 V8 官方的 [blog](https://v8.dev/blog/fast-async#async-functions)，在 Node.js 12 的一系列优化后，`async`函数在内部被转化成了
 
 ```js
 async function foo(v) {

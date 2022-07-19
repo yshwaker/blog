@@ -1,5 +1,5 @@
 ---
-title: 如何保证同域名下的router后退操作（better fallback of back button ）
+title: 如何保证同域名下的 router 后退操作
 date: '2021-06-26'
 summary: 如何使用`history.goBack()`并保持页面在相同域名下
 ---

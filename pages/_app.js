@@ -2,6 +2,7 @@ import splitbee from '@splitbee/web'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import '../styles/globals.css'
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     splitbee.init({
@@ -10,10 +11,10 @@ function MyApp({ Component, pageProps }) {
     })
   })
   return (
-    <div className="mx-auto max-w-2xl py-8">
-      <h1 className="text-lg mb-10">
+    <div className="mx-auto max-w-2xl px-5 py-8 font-text">
+      <h1 className="font-header text-xl">
         <Link href="/">
-          <a>ShioY&apos;s Blog</a>
+          <a>Shio Y. Blog</a>
         </Link>
       </h1>
       <Component {...pageProps} />

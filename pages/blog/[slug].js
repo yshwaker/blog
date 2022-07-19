@@ -13,15 +13,16 @@ export default function BlogPage({ title, date, content }) {
       </Head>
       <main>
         <article>
-          <header>
+          <header className="py-20">
             <h2 className="text-4xl font-bold">{title}</h2>
-            <p className="text-sm mb-5">{date}</p>
+            <p className="text-sm">{date}</p>
           </header>
-          <div className="prose mb-5">
+          <div className="prose">
             <MDXRemote {...content} />
           </div>
         </article>
       </main>
+      <footer className="mt-20 text-4xl text-right">𝄇</footer>
     </div>
   )
 }
