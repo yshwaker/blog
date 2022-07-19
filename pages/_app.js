@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     })
   })
   return (
-    <div className="mx-auto max-w-2xl px-5 py-8 font-text">
+    <div className="mx-[10vw] py-8 font-text">
       <h1 className="font-header text-xl">
         <Link href="/">
           <a>Shio Y. Blog</a>

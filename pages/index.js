@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getAllPosts } from '../lib/mdx'
+import { getPostList } from '../lib/mdx'
 
 export default function Home({ posts }) {
   return (
@@ -13,17 +13,17 @@ export default function Home({ posts }) {
       <main>
         <h2 className="text-5xl font-bold py-16">Latest</h2>
         <div className="space-y-12">
-          {posts.map((item) => (
-            <div key={item.slug}>
+          {posts.map(({ frontmatter, slug }) => (
+            <div key={slug}>
               <div>
-                <Link href={`/blog/${item.slug}`}>
+                <Link href={`/blog/${slug}`}>
                   <a className="text-2xl font-bold text-gray-600">
-                    {item.title}
+                    {frontmatter.title}
                   </a>
                 </Link>
               </div>
-              <div className="text-sm text-gray-600">{item.date}</div>
-              <div className="text-gray-500">{item.summary}</div>
+              <div className="text-sm text-gray-600">{frontmatter.date}</div>
+              <div className="text-gray-500">{frontmatter.summary}</div>
             </div>
           ))}
         </div>
@@ -33,8 +33,7 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const posts = getAllPosts()
-
+  const posts = getPostList()
   return {
     props: {
       posts,

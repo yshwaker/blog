@@ -1,24 +1,30 @@
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemote } from 'next-mdx-remote'
+import React from 'react'
 import Head from 'next/head'
-import { getAllPosts } from '../../lib/mdx'
+import { getMDXComponent } from 'mdx-bundler/client'
+import { getPostList, getPostBySlug } from '../../lib/mdx'
+import { CodeBlock } from '../../components/CodeBlock'
 
-export default function BlogPage({ title, date, content }) {
+export default function BlogPage({ frontmatter, code }) {
+  const Component = React.useMemo(() => getMDXComponent(code), [code])
   return (
     <div>
       <Head>
-        <title>{title} - ShioY&apos;s Blog</title>
+        <title>{frontmatter.title} - Shio Y. Blog</title>
         <meta name="description" content="Post" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <article>
           <header className="py-20">
-            <h2 className="text-4xl font-bold">{title}</h2>
-            <p className="text-sm">{date}</p>
+            <h2 className="text-4xl font-bold">{frontmatter.title}</h2>
+            <p className="text-sm">{frontmatter.date}</p>
           </header>
           <div className="prose">
-            <MDXRemote {...content} />
+            <Component
+              components={{
+                pre: CodeBlock,
+              }}
+            />
           </div>
         </article>
       </main>
@@ -28,21 +34,16 @@ export default function BlogPage({ title, date, content }) {
 }
 
 export async function getStaticProps(context) {
-  const posts = getAllPosts()
   const { params } = context
-  const post = posts.find((post) => post.slug === params.slug)
-  const content = await serialize(post.content)
+  const post = await getPostBySlug(params.slug)
 
   return {
-    props: {
-      ...post,
-      content,
-    },
+    props: post,
   }
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts()
+  const posts = getPostList()
   return {
     paths: posts.map((post) => ({
       params: {
