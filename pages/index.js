@@ -33,7 +33,9 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const posts = getPostList()
+  const posts = getPostList().sort((a, b) =>
+    a.frontmatter.date > b.frontmatter.date ? -1 : 1
+  )
   return {
     props: {
       posts,

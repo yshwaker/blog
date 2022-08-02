@@ -1,6 +1,7 @@
 import splitbee from '@splitbee/web'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import '@code-hike/mdx/dist/index.css'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
