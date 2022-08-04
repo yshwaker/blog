@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:staged": "lint-staged"
   },
   "dependencies": {
     "@code-hike/mdx": "^0.7.2",
@@ -25,6 +26,8 @@
     "autoprefixer": "^10.4.7",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.6"
   },

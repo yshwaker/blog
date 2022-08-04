@@ -1,0 +1,4 @@
+{
+  "**/*.{md,mdx}": "node scripts/updateDate"
+}
+
