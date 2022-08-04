@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        '5vw': '5vw',
         '10vw': '10vw',
       },
       typography: (theme) => ({
