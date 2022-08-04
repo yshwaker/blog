@@ -2,6 +2,7 @@
 title: 从 0 实现一个 Promise
 date: '2022-07-29'
 summary: Learn to implement a Promise from scratch
+updatedOn: '2022-08-04T09:50:08.566Z'
 ---
 
 本文旨在通过实现一个 Promise 类来深入理解 Promise 的运行机制，虽然会提到一些 Promise 的基本概念，但最好先有一定了解， 可通过 MDN 进行查询
@@ -322,7 +323,7 @@ class MyPromise {
 
 #### Note
 
-对于实际的 Promise 来说，返回值不仅可以是 Promise 对象，还可以是更广泛意义上的 thenable object，即任何带有`then`方法的对象
+对于实际的 Promise 来说，返回值不仅可以是 Promise 对象，还可以是更广泛意义上的 Thenable Object，即任何带有`then`方法的对象
 
 ```js
 function isThenable(value) {
