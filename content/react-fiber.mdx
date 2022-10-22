@@ -1,0 +1,96 @@
+---
+title: 谈谈 React Fiber
+date: '2022-10-22'
+summary: React Fiber 的原理
+---
+## 什么是 React Fiber
+React 16 起开始使用的 reconciler
+## 新特性
+-   将 reconciliation 变成**可中断**的工作方式
+-   React 可以可以按照不同更新任务的优先级来安排工作
+## 解决了什么问题
+之前不可中断的更新方式容易导致 JS 引擎运行时间过长，导致页面渲染流程被阻塞。
+因为 React 16 使用的是 Stack Reconciler, 使用递归的方式遍历 Virtual DOM，整个工作在遍历完之前无法中断
+## 实现细节
+### 引入 fiber 节点
+fiber 节点时一种 React 中的数据结构，每个 fiber 对应每个单独的 React Element, Virtual DOM 上的一个节点
+```js
+type Fiber = {
+    // 当前 Fiber 处理完成后返回的 Fiber 节点
+    // 也就是父亲节点
+    return: Fiber | null,
+
+    // 执行当前的节点的孩子节点和兄弟节点
+    // 因此 Fiber 兄弟之间、父子之间形成了链表
+    child: Fiber | null,
+    sibling: Fiber | null,
+
+    // 与 Fiber 相关联的 React 实例
+    stateNode: any
+
+    // 指向 effect list 链表中的下一个具有 side effect 的 Fiber
+    nextEffect: Fiber | null,
+
+    // ...
+}
+```
+可以看到单个 fiber 包含指向 `child`, `parent`, `sibling` 的指针，因此可以理解为添加了链表的树，或图
+### Fiber 的遍历方式
+> TL;DR **非递归**的 DFS
+
+由于每个 fiber 包含上述相关 fiber 的指针，因此每个 fiber 处理结束后可以返回下一个需要处理的 fiber 是什么。这为 Fiber 树更新阶段的**可中断**特性提供基础。程序不再需要依靠调用栈来跟踪它在树中的位置以供回溯 ( 递归遍历树的原理 )
+### 页面初始渲染时期
+DFS 遍历为每个 React element 创建 fiber，形成 Fiber Tree
+![fiber tree](/blog-images/fiber-tree.png)
+### 页面更新时期
+与之前不同的是，对于每一个更新任务，React Fiber 将更新过程分为两个阶段：渲染阶段和提交 commit 阶段
+#### 渲染阶段 ( reconcilation )
+-   可中断
+
+Fiber 对树进行遍历，并根据需要做的更新生成新的 wip ( work-in-progress ) 树。树的遍历与二叉树的先序遍历很像
+1.  从根节点开始遍历
+2.  处理当前节点
+3.  如果有数据结构中的 `child` 属性判断是否存在孩子节点，有则跳转都孩子节点，并重复 2
+4.  如果已经是叶子节点了，则判断是否存在兄弟节点，有则跳转到兄弟节点，并重复 2
+5.  如果没有未访问的兄弟节点和孩子节点了，则宣布该节点已完成，返回父亲节点
+
+在处理节点的过程中，如果该节点需要更新，则对该节点打上标记。
+当节点为已完成状态时，如果它身上有标记，则将它添加到名为 `effect list` 的链表中，等待 commit 阶段统一更新。
+#### commit 阶段
+-   不可中断
+
+在这一阶段，React 首先按照 `effect list` 中的顺序将所有变更更新到 DOM 上，并执行相应的生命周期函数 ( 对于 class component 是这样 ) 。
+
+总结以上两个阶段，对于一个更新任务来说，我们可以这样理解：
+
+一个任务可分为 fiber1|fiber2|fiber3|...|fiberX| ( commit ) 这样的工作单元序列。
+在所有 `|` 的地方，都是可中断的 ( 注意：不是一定会中断 ) 。
+
+#### 分配优先级
+页面运行过程中的更新任务被依次加入在 `update queue` 中。React 中每一种任务有不同的优先级：
+-   Synchronous，
+与 Stack Reconciliation 类似
+-   Task，
+需要在下一个事件循环周期前完成
+-   Animation ( 动画 ) ，
+需要在下一帧重绘前完成
+-   High，
+高优先级的任务可以插队到低优先级任务之前
+-   Low，
+如远程数据请求，更新的略微延迟 ( 几百毫秒 ) 相比于之前的网络传输可以忽略不记
+-   Offscreen，对隐藏的元素或者暂时不在屏幕中的元素进行更新，为将来的显示做准备
+#### 如何调度
+对于 High, Low, Offscreen 任务，React 会调用 `requestIdleCallback`，告诉浏览器在每一帧的空闲时间执行。
+
+拿低优先级的更新任务举例，每执行完一个工作单元 ( 也就是一个 fiber ) 后，调度器都会查看下一帧开始前的剩余时间。如果还有时间，则会执行下一个工作单元。此时假设有其他高优先级的任务出现，调度器并不会立即执行它，而是仍会执行当前任务，直到剩余时间用尽。
+
+如果时间用尽前，当前任务仍然没有完成，那么 React 会在结束前继续调用 `requestIdCallback`, 在下一个空闲时段继续剩下的工作
+
+当剩余时间用尽后，调度器根据 `update queue` 中的认识的优先级选择更新任务执行。此前出现的高优先级任务此时会被优先执行。执行时，调度会丢弃进行到一半的低优先级任务的工作成果，并在高优先级任务结束后再重新执行原先的低等级任务。
+
+## 总结
+React Fiber 本质上就是使用非递归的方式更新 fiber 树，使得 React 不再为了遍历完整棵树而一直霸占 Main Thread。同时吸取了与显卡渲染中的双缓存机制类似的概念，在可中断的同时保证页面的一致性。
+
+## 参考
+[An Introduction to React Fiber - The Algorithm Behind React](https://www.velotio.com/engineering-blog/react-fiber-algorithm) \
+[A Cartoon Intro To Fiber - React Conf 2017](https://www.youtube.com/watch?v=ZCuYPiUIONs)
