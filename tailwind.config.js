@@ -6,6 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        rainbow: {
+          '0%': { 'background-position': 'left' },
+          '50%': { 'background-position': 'right' },
+          '100%': { 'background-position': 'left' },
+        },
+      },
+      animation: {
+        rainbow: 'rainbow 2s ease-in-out infinite',
+      },
       spacing: {
         '5vw': '5vw',
         '10vw': '10vw',

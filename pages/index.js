@@ -15,13 +15,13 @@ export default function Home({ posts }) {
         <div className="space-y-12">
           {posts.map(({ frontmatter, slug }) => (
             <div key={slug}>
-              <div>
+              <h3>
                 <Link href={`/blog/${slug}`}>
-                  <a className="text-2xl font-bold text-gray-600">
+                  <a className="text-2xl font-bold text-gray-600 bg-clip-text transition ease-in-out duration-500 hover:text-opacity-0 bg-gradient-to-r from-violet-400 to-blue-400">
                     {frontmatter.title}
                   </a>
                 </Link>
-              </div>
+              </h3>
               <div className="text-sm text-gray-600">{frontmatter.date}</div>
               <div className="text-gray-500">{frontmatter.summary}</div>
             </div>
