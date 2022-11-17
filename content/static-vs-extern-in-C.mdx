@@ -1,0 +1,115 @@
+---
+title: C语言中的static与extern
+date: '2016-03-26'
+summary: >-
+  在学习 Operating System 时，作业需要使用 C 语言在一个 toy OS 中进行编程与学习。 在原始提供的源码中，发现有许多 static
+  和 extern 的关键字，故在此做一下总结与整理。
+updatedOn: '2022-11-17T04:58:33.869Z'
+---
+
+最近在学习 Operating System，作业需要使用 C 语言在一个 toy OS 中进行编程与学习。 在原始提供的源码中，发现有许多 `static` 和 `extern` 的关键字，故在此做一下总结与整理。
+
+## extern
+
+首先来看一下 `extern`。其最主要的作用就是可以引用工程的其他文件中定义的变量或函数。
+假设有两个文件 `foo1.c` 和 `foo2.c`：
+
+foo1.c
+
+```c
+int var;
+```
+
+foo2.c
+
+```c
+extern int var;
+```
+
+最终生成可执行文件时，需要分别编译 compile 和链接 link：
+
+```bash
+gcc -c foo1.c
+gcc -c foo2.c
+gcc foo1.o foo2.o -o foo  // link
+```
+
+在编译过程中，编译器只会为 `foo2.c` 中的 var 分配内存，在 `foo1.c` 中仅仅生成一个名为 var 的 symbol。而后在 link 过程中，链接器会将该 symbol 替换为 `foo2.c` 中的 var 的内存地址，从而达到指向同一变量的目的。
+
+`extern` 的实际应用场景主要在编写库 library。打个比方，假设有名为 Mylib 的库，包含 `Mylib.c` 和 `Mylib.h`。
+MyLib.c:
+
+```c
+int Variable;
+```
+
+MyLib.h:
+
+```c
+extern int Variable;
+```
+
+main.c:
+
+```c
+# include "MyLib.h"
+
+int main ( void )
+{
+    Variable = 10;
+    printf ( "%d\n", Variable ) ;
+    return 0;
+}
+```
+
+在。h 文件中使用 `extern` 来引用。c 库文件中定义的变量后，用户即可通过 include 头文件来使用库中的变量。
+
+## static
+
+回到之前提到的例子，如果 `foo2.c` 中的 `extern` 去掉又会怎样呢。
+对于未初始化的变量，GCC 会默认将它们视为同一个变量，效果与 `extern` GCC 会报错：
+
+```
+/tmp/ccFN6SQZ.o: ( .data+0x0 ) : multiple definition of `var'
+/tmp/ccbc0T4O.o: ( .data+0x0 ) : first defined here
+```
+
+假设 `foo1.c` 与 `foo2.c` 分别来自于两个不同的库，如果用户想要同时 include 这两种库时，就会产生 multiple definition 的错误。作为库的开发者，有责任防止这种多重定义的情况的发生，因此需要用到 `static。`
+
+`static` 保证了定义的变量和函数只存在该文件范围内，其他的文件无法 link 这些变量和函数，从而避免了多重定义的问题。
+
+除此之外，定义在函数中 `static` 变量在函数被调用后可维持该变量的值。
+
+来看一下下面的例子：
+
+```c
+void foo ( )
+{
+    int a = 10;
+    static int sa = 10;
+
+    a += 5;
+    sa += 5;
+
+    printf ( "a = %d, sa = %d\n", a, sa ) ;
+}
+
+int main ( )
+{
+    int i;
+
+    for ( i = 0; i < 10; ++i )
+        foo ( ) ;
+}
+```
+
+这种情况下，main 函数调用 `foo` 函数，在 `foo` 执行完退出后，`sa` 变量仍然保持其退出前的值。当 `foo` 被在此调用的时候，`sa` 会在原来的基础上再加 `5`。
+
+当我们需用保留调用函数的某种状态而又不想创建全局变量时，这种方法就显得比较有用。然而，这种方法的滥用会导致程序的可读性和线程安全，所以需要谨慎使用。
+
+在 C++中，`static` 还可用于 class 属性，在此不再赘述。
+
+## 参考：
+
+1.  [stackoverflow](http://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program/572550#572550)
+2.  [quora](https://www.quora.com/What-is-the-deep-difference-between-static-extern-declaration-in-C-C++-programming)
