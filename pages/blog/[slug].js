@@ -1,7 +1,11 @@
-import React from 'react'
-import Head from 'next/head'
 import { getMDXComponent } from 'mdx-bundler/client'
-import { getPostList, getPostBySlug } from '../../lib/mdx'
+import Head from 'next/head'
+import React from 'react'
+import { getPostBySlug, getPostList } from '../../lib/mdx'
+
+function goTop() {
+  window.scrollTo(0, 0)
+}
 
 export default function BlogPage({ frontmatter, code }) {
   const Component = React.useMemo(() => getMDXComponent(code), [code])
@@ -23,7 +27,15 @@ export default function BlogPage({ frontmatter, code }) {
           </div>
         </article>
       </main>
-      <footer className="mt-20 text-4xl text-right">𝄇</footer>
+      <footer className="mt-20 text-4xl flex justify-end ">
+        <div
+          role="button"
+          className="p-2 transition-transform hover:rotate-90 ease-in-out cursor-pointer"
+          onClick={goTop}
+        >
+          𝄇
+        </div>
+      </footer>
     </div>
   )
 }
