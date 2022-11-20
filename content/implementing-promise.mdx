@@ -2,7 +2,7 @@
 title: 从 0 实现一个 Promise
 date: '2022-07-29'
 summary: Learn to implement a Promise from scratch
-updatedOn: '2022-08-04T13:20:17.268Z'
+updatedOn: '2022-11-20T07:10:45.482Z'
 ---
 
 本文旨在通过实现一个 Promise 类来深入理解 Promise 的运行机制，虽然会提到一些 Promise 的基本概念，但最好先有一定了解， 可通过 MDN 进行查询
@@ -228,11 +228,7 @@ then = (onFulfilled, onRejected) => {
       // mark
       const value =
         // mark
-        typeof onFulfilled === 'function'
-          ? // mark
-            onFulfilled(this.#value)
-          : // mark
-            this.#value
+        typeof onFulfilled === 'function' ? onFulfilled(this.#value) : this.#value
       // mark
       resolve(value)
       // mark
@@ -244,6 +240,7 @@ then = (onFulfilled, onRejected) => {
         // mark
         typeof onRejected === 'function' ? onRejected(this.#value) : this.#value
       // mark
+      resolve(value)
     }
 
     addToTaskQueue(() => {
@@ -278,7 +275,7 @@ console.log('global')
 const follower = fetch('/followers')
 const p = follower.then((ids) => {
   const user = fetch(`/api/user/${id[0]}`)
-  return u
+  return user
 })
 ```
 
