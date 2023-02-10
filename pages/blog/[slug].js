@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { getMDXComponent } from 'mdx-bundler/client'
 import Head from 'next/head'
 import React from 'react'
@@ -20,7 +21,9 @@ export default function BlogPage({ frontmatter, code }) {
         <article>
           <header className="py-20">
             <h2 className="text-5xl font-bold">{frontmatter.title}</h2>
-            <p className="text-sm pt-2 text-gray-500">{frontmatter.date}</p>
+            <p className="text-sm pt-2 text-gray-500">
+              {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
+            </p>
           </header>
           <div className="prose max-w-none">
             <Component />

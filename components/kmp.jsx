@@ -17,8 +17,8 @@ export function KMPDemo1() {
   return (
     <div className="border-2 border-dashed rounded-lg border-gray-400 p-4">
       <div className="flex flex-row">
-        {Array.from(T).map((char) => (
-          <Box char={char} />
+        {Array.from(T).map((char, i) => (
+          <Box key={i} char={char} />
         ))}
       </div>
       <div
@@ -29,7 +29,7 @@ export function KMPDemo1() {
       >
         {Array.from(P).map((char, i) => {
           const color = T[i + offset] === P[i] ? 'bg-green-300' : 'bg-red-300'
-          return <Box char={char} className={color} />
+          return <Box key={i} char={char} className={color} />
         })}
       </div>
       <div className="mt-2">
@@ -70,19 +70,19 @@ export function KMPDemo2() {
           if (i === 5 || i === 13) {
             color = 'bg-red-300'
           }
-          return <Box char={char} className={color} />
+          return <Box key={i} char={char} className={color} />
         })}
       </div>
       <div className={`flex flex-row mt-2 items-center`}>
         <label className="w-20">Index：</label>
-        {Array.from(index).map((char) => (
-          <Box char={char} />
+        {Array.from(index).map((char, i) => (
+          <Box key={i} char={char} />
         ))}
       </div>
       <div className={`flex flex-row mt-2 items-center`}>
         <label className="w-20">模式串 P：</label>
-        {Array.from(next).map((char) => (
-          <Box char={char} />
+        {Array.from(next).map((char, i) => (
+          <Box key={i} char={char} />
         ))}
       </div>
     </div>
