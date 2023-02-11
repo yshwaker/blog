@@ -20,7 +20,9 @@ export default function BlogPage({ frontmatter, code }) {
       <main>
         <article>
           <header className="py-20">
-            <h2 className="text-5xl font-bold">{frontmatter.title}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold">
+              {frontmatter.title}
+            </h2>
             <p className="text-sm pt-2 text-gray-500">
               {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
             </p>

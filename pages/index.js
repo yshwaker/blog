@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import Head from 'next/head'
 import Link from 'next/link'
 import { getPostList } from '../lib/mdx'
@@ -22,7 +23,9 @@ export default function Home({ posts }) {
                   </a>
                 </Link>
               </h3>
-              <div className="text-sm text-gray-600">{frontmatter.date}</div>
+              <div className="text-sm text-gray-600">
+                {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
+              </div>
               <div className="text-gray-500">{frontmatter.summary}</div>
             </div>
           ))}
