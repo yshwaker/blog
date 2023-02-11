@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-function Box({ char, className }) {
+function Box({ char, className = '' }) {
   return (
     <div
-      className={`-ml-0.5 w-10 h-10 border-2 border-black flex justify-center gap items-center bg-gray-50 ${className}`}
+      className={`-ml-0.5  w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50 ${className}`}
     >
       {char}
     </div>
@@ -22,9 +22,9 @@ export function KMPDemo1() {
         ))}
       </div>
       <div
-        className={`flex flex-row mt-2 relative`}
+        className={`inline-flex flex-row mt-2 relative`}
         style={{
-          left: `${(offset * 9.5) / 4}rem`,
+          left: `${(offset * 8.5) / 4}rem`,
         }}
       >
         {Array.from(P).map((char, i) => {
@@ -59,9 +59,10 @@ export function KMPDemo2() {
   index[13] = 'x'
   const next = '0001200012345?'
   return (
-    <div className="border-2 border-dashed rounded-lg border-gray-400 p-4">
+    <div className="border-2 border-dashed rounded-lg border-gray-400 p-2 md:p-4">
       <div className="flex flex-row items-center">
-        <label className="w-20">主串 T：</label>
+        <label className="w-20 hidden md:block">主串 T：</label>
+        <label className="w-4 text-sm md:hidden">T：</label>
         {Array.from(T).map((char, i) => {
           let color = ''
           if (i < 5 || (i >= 8 && i <= 12)) {
@@ -74,13 +75,15 @@ export function KMPDemo2() {
         })}
       </div>
       <div className={`flex flex-row mt-2 items-center`}>
-        <label className="w-20">Index：</label>
+        <label className="w-20 hidden md:block">Index：</label>
+        <label className="w-4 text-sm md:hidden">I：</label>
         {Array.from(index).map((char, i) => (
           <Box key={i} char={char} />
         ))}
       </div>
       <div className={`flex flex-row mt-2 items-center`}>
-        <label className="w-20">模式串 P：</label>
+        <label className="w-20 hidden md:block">模式串 P：</label>
+        <label className="w-4 text-sm md:hidden">P：</label>
         {Array.from(next).map((char, i) => (
           <Box key={i} char={char} />
         ))}
