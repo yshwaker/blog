@@ -4,7 +4,7 @@ const Sitemap = () => {}
 
 export const getServerSideProps = ({ res }) => {
   const baseUrl = {
-    development: 'http://localhost:5000',
+    development: 'http://localhost:3000',
     production: 'https://shioyu.dev',
   }[process.env.NODE_ENV]
 
