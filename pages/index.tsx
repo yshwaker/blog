@@ -5,7 +5,7 @@ import { getPostList } from '../lib/mdx'
 
 export default function Home({ posts }) {
   return (
-    <div>
+    <>
       <Head>
         <title>Shio Y. Blog</title>
         <meta name="description" content="Personal Blog by ShioY" />
@@ -15,7 +15,7 @@ export default function Home({ posts }) {
         <h2 className="text-5xl font-bold py-16">Latest</h2>
         <div className="space-y-12">
           {posts.map(({ frontmatter, slug }) => (
-            <div key={slug}>
+            <article key={slug}>
               <h3>
                 <Link href={`/blog/${slug}`}>
                   <a className="text-2xl font-bold text-gray-600 bg-clip-text transition ease-in-out duration-500 hover:text-opacity-0 bg-gradient-to-r from-violet-400 to-blue-400">
@@ -23,15 +23,15 @@ export default function Home({ posts }) {
                   </a>
                 </Link>
               </h3>
-              <div className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600">
                 {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
-              </div>
-              <div className="text-gray-500">{frontmatter.summary}</div>
-            </div>
+              </p>
+              <p className="text-gray-500">{frontmatter.summary}</p>
+            </article>
           ))}
         </div>
       </main>
-    </div>
+    </>
   )
 }
 
