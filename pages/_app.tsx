@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
     })
   })
   return (
-    <div className="max-w-3xl mx-5vw md:mx-auto py-8 font-text">
+    <div className="max-w-3xl mx-5vw md:mx-auto py-8 font-body">
       <h1 className="font-header text-xl">
         <Link href="/">
           <a>Shio Y. Blog</a>

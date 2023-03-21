@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -39,7 +40,7 @@ module.exports = {
         },
       }),
     },
-    fontfamily: {
+    fontFamily: {
       header: [
         'lora',
         '-apple-system',
@@ -51,7 +52,7 @@ module.exports = {
         'st heiti',
         'sans-serif',
       ],
-      text: [
+      body: [
         'georgia',
         '-apple-system',
         'nimbus roman no9 l',
