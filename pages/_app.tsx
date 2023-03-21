@@ -19,6 +19,9 @@ function MyApp({ Component, pageProps }) {
         </Link>
       </h1>
       <Component {...pageProps} />
+      <footer className="mt-28 text-gray-500">
+        All rights reserved © Shio Y. 2023
+      </footer>
     </div>
   )
 }

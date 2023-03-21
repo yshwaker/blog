@@ -26,7 +26,7 @@ export default function BlogPage({ frontmatter, code }) {
       <main className="prose max-w-none">
         <Component />
       </main>
-      <footer className="mt-20 text-4xl flex justify-end ">
+      <div className="mt-20 text-4xl flex justify-end">
         <div className="group">
           <button
             role="button"
@@ -36,7 +36,7 @@ export default function BlogPage({ frontmatter, code }) {
             𝄇
           </button>
         </div>
-      </footer>
+      </div>
     </>
   )
 }
