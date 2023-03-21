@@ -33,12 +33,14 @@ export default function BlogPage({ frontmatter, code }) {
         </article>
       </main>
       <footer className="mt-20 text-4xl flex justify-end ">
-        <div
-          role="button"
-          className="p-2 transition-transform hover:rotate-90 ease-in-out cursor-pointer"
-          onClick={goTop}
-        >
-          𝄇
+        <div className="group">
+          <div
+            role="button"
+            className="group-hover:rotate-90 px-4 py-2 transition-transform"
+            onClick={goTop}
+          >
+            𝄇
+          </div>
         </div>
       </footer>
     </div>
