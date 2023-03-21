@@ -54,7 +54,9 @@ export function KMPDemo1() {
 
 export function KMPDemo2() {
   const T = 'abcabdddabcabc'
-  const index = Array.from(Array(14)).map((_, i) => i + 1)
+  const index: Array<Number | String> = Array.from(Array(14)).map(
+    (_, i) => i + 1
+  )
   index[5] = 'now'
   index[13] = 'x'
   const next = '0001200012345?'
