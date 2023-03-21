@@ -12,22 +12,22 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h2 className="text-5xl font-bold py-16">Latest</h2>
+        <h2 className="text-5xl font-bold text-gray-800 py-16">Latest</h2>
         <div className="space-y-12">
           {posts.map(({ frontmatter, slug }) => (
-            <article key={slug}>
-              <h3>
-                <Link href={`/blog/${slug}`}>
-                  <a className="text-2xl font-bold text-gray-600 bg-clip-text transition ease-in-out duration-500 hover:text-opacity-0 bg-gradient-to-r from-violet-400 to-blue-400">
+            <Link href={`/blog/${slug}`}>
+              <a className="group block" key={slug}>
+                <h3>
+                  <span className="text-2xl font-bold text-gray-600 bg-clip-text transition duration-1000 group-hover:text-opacity-0 group-hover:duration-100 bg-gradient-to-r from-indigo-500 via-sky-500 to-blue-500">
                     {frontmatter.title}
-                  </a>
-                </Link>
-              </h3>
-              <p className="text-sm text-gray-600">
-                {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
-              </p>
-              <p className="text-gray-500">{frontmatter.summary}</p>
-            </article>
+                  </span>
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
+                </p>
+                <p className="text-gray-500">{frontmatter.summary}</p>
+              </a>
+            </Link>
           ))}
         </div>
       </main>
