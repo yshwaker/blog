@@ -2,6 +2,7 @@
 title: 谈谈 React Fiber
 date: '2022-10-22'
 summary: React Fiber 的原理
+updatedOn: '2023-05-01T12:10:05.075Z'
 ---
 ## 什么是 React Fiber
 React 16 起开始使用的 reconciler
@@ -87,6 +88,9 @@ Fiber 对树进行遍历，并根据需要做的更新生成新的 wip ( work-in
 如果时间用尽前，当前任务仍然没有完成，那么 React 会在结束前继续调用 `requestIdCallback`, 在下一个空闲时段继续剩下的工作
 
 当剩余时间用尽后，调度器根据 `update queue` 中的认识的优先级选择更新任务执行。此前出现的高优先级任务此时会被优先执行。执行时，调度会丢弃进行到一半的低优先级任务的工作成果，并在高优先级任务结束后再重新执行原先的低等级任务。
+
+##### 更新
+React已经不再使用`requestIdleCallback`，而是使用自己的[scheduler](https://github.com/facebook/react/tree/main/packages/scheduler)
 
 ## 总结
 React Fiber 本质上就是使用非递归的方式更新 fiber 树，使得 React 不再为了遍历完整棵树而一直霸占 Main Thread。同时吸取了与显卡渲染中的双缓存机制类似的概念，在可中断的同时保证页面的一致性。
