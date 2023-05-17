@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { getMDXComponent } from 'mdx-bundler/client'
 import Head from 'next/head'
 import React from 'react'
+import { VisuallyHidden } from '../../components/VisuallyHidden'
 import { getPostBySlug, getPostList } from '../../lib/mdx'
 
 function goTop() {
@@ -34,6 +35,7 @@ export default function BlogPage({ frontmatter, code }) {
             onClick={goTop}
           >
             𝄇
+            <VisuallyHidden>回到顶部</VisuallyHidden>
           </button>
         </div>
       </div>
