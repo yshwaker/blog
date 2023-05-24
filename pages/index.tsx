@@ -12,7 +12,9 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h2 className="text-5xl font-bold text-gray-800 py-16">Latest</h2>
+        <h2 className="text-5xl text-shadow shadow-gray-400 font-bold text-gray-800 py-16 ">
+          Latest
+        </h2>
         <div className="space-y-12">
           {posts.map(({ frontmatter, slug }) => (
             <Link key={slug} href={`/blog/${slug}`}>

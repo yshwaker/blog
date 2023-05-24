@@ -7,15 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      keyframes: {
-        rainbow: {
-          '0%': { 'background-position': 'left' },
-          '50%': { 'background-position': 'right' },
-          '100%': { 'background-position': 'left' },
-        },
-      },
-      animation: {
-        rainbow: 'rainbow 2s ease-in-out infinite',
+      textShadow: {
+        sm: '1px 2px 4px var(--tw-shadow-color)',
+        DEFAULT: '2px 4px 8px var(--tw-shadow-color)',
+        lg: '4px 8px 16px var(--tw-shadow-color)',
       },
       spacing: {
         '5vw': '5vw',
@@ -51,5 +46,19 @@ module.exports = {
       ],
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        {
+          values: theme('textShadow'),
+        }
+      )
+    },
+  ],
 }
