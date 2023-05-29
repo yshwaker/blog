@@ -2,6 +2,7 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 import path from 'path'
+import remarkGfm from 'remark-gfm'
 import theme from 'shiki/themes/slack-ochin.json'
 
 import { remarkCodeHike } from '@code-hike/mdx'
@@ -30,6 +31,7 @@ export async function getPostBySlug(slug) {
     mdxOptions(options) {
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
+        remarkGfm,
         [remarkCodeHike, { theme, showCopyButton: true }],
       ]
       return options

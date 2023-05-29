@@ -1,0 +1,131 @@
+---
+title: 网站无障碍化
+date: '2023-05-26'
+summary: 有关 a11y 的若干技巧
+updatedOn: '2023-05-29T09:01:43.814Z'
+---
+
+
+我国的网民规模已经将近11亿，其中不乏一些特殊人群，他们和我们一样享有能够正常、愉悦地享受网络带来的勉励的权利。况且越来越多的生活服务被搬到了网上，如今离开了互联网几乎寸步难行。因此网站的无障碍化显得更加重要了。前段时间学习了 Josh W Comeau 的[课程](https://css-for-js.dev/)，其中他对网站的无障碍化费了不少笔墨，学习后感觉获益颇丰。尽管在公司的项目中，无障碍化的设计可能已经被封装在基础化的组件中或者被设计团队所充分考虑，但我觉得对于程序员来说仍然是一种不可或缺的知识，尤其是开发自己的独立项目时。
+
+## 特殊人群
+
+在网页设计时，时常从特殊人群的使用角度出发去思考问题，更有利于网站的无障碍化设计。让我们设想一下特殊人群使用网页的情景：
+- 行动障碍人群可能需要键盘不断点击 Tab 键来选择网页中的可交互元素。
+- 视力严重障碍的人需要使用读屏软件来播放网页中各个元素和其中的内容。常见的读屏软件如：苹果系统中自带的 VoiceOver，Windows 系统中的 Narrator，安卓系统中 Talkback。
+- 色弱、色盲人群：可能对红绿、黄蓝以及一些对比度低的色彩组合失去分辨能力。
+- 老龄化人群：通常以更大的默认字体浏览网页，或频繁使用放大缩小功能。
+- 前庭运动障碍患者：这部分人群可能会开启系统的“减少动态功能”以避免过多带有动态的动画带来的不良反应。
+
+针对这些使用场景，我们应当确保他们在使用系统的辅助功能时能够得到正确的结果和良好的体验。
+
+## 读屏模式的正确性
+
+### 伪元素
+当我们在使用`::before`或`::after`等伪元素时，不应当在其中添加除了装饰性元素以外的文字内容。这是因为不同浏览器在通过读屏软件阅读这些元素的处理上存在不一致。一些浏览器会读出其中的文字内容，一些则不会。使用`<span>`来配合 CSS 添加文字内容也可以达到一样的效果。
+
+### 常用组件
+当创建自己的progress bar，breadcrumb等常用UI组件时，尽量遵循规范，添加适当的`aria-label`。可以参考[WAI-ARIA Roles - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)。WAI 文档中也提供了常见类型的指南，如[Breadcrumb Pattern | APG | WAI | W3C](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/)。
+
+在选择第三方UI组件库时，优先选择无障碍支持较好的组件，如[Radix](https://www.radix-ui.com/)。
+
+### 视觉上隐藏元素
+
+在网页设计中，一些常见的元素如 Icon 对于普通用户来说具有不错的辨识度，但无法被读屏软件读出。我们可以选择在 Icon 旁添加相应的说明文字。如果不希望改动 UI 设计，那么可以选择添加`aria-label`属性。但是要注意的是，在**非**可交互元素上添加`aria-label`会被自动忽略。那么这个时候，可以选择使用 CSS 来隐藏文字同时保证其可被读屏软件读出。
+```css
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+```
+我们没有使用`display:none`和`visibility:hidden`，因为它们会同时对读屏软件隐藏元素。
+
+## 适老化
+
+### 文字的大小和排布
+
+字体的大小不应小于 16px。根据 [WCAG](https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html)的规范，行高至少需要 1.5。而中文没有英文那样较大的上伸部（ascender）和下延部（descender）空白区域，所以个人认为可以行高可以更大一些。
+![中英文字体上下空白区域对比](/blog-images/a11y-text.png)
+
+#### 响应式设计中断点的单位
+
+通常我们在`@media`规则中使用如`500px`，`1100px`，`1500px`等断点来区分手机、平台、PC等不同使用场景。但是当我们预期用户会修改浏览器的默认字体大小时，这样的断点设置方式是否合理呢？
+![默认字体大小设置](/blog-images/default-font-size-setting.png)
+在浏览器默认设置下文本的字体是 16px，相对于 1600px 的显示器来说，是 100 倍的比例。但是当用户选择了更大的字体设置时（比如增大一倍），其相对比例就变成了 50倍。从文字和屏幕比例关系来说，相当于用户处在一个800px的显示设备上。那么此时如果仍然保持原有布局，一定会显得比较拥挤。更合适的做法应该是使用`500px ~ 1100px`所对应的手机端布局。
+
+因此我们发现断点的设置实际上和文字的字体大小有关，在选取单位时，使用相对于根元素字体大小的`rem`单位就更合适了。可以将`@media`改为：
+```css
+@media (min-width: calc(500 / 16 * 1rem)) {
+  ...
+}
+```
+
+#### 触摸屏可点击区域
+根据苹果的[人机交互指南](https://developer.apple.com/design/human-interface-guidelines/accessibility#Buttons-and-controls)中的建议，移动端可交互元素的点击有效区域应不小于 44 x 44px。对于手指不太灵活的老年人和行动不便人士来说，这是非常必要的。每当看到身边的老年人费力地戳着屏幕，都会觉得我们这些从业人员的责任重大。
+
+但是我们仍然希望网页的实现与设计能保持一致，在满足点击有效区域的同时，保持原有元素大小。`::after`可以帮助我们达到这一点。
+```css
+button {
+  position: relative;
+  height: 36px;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+```
+![a11y-clickable-area](/blog-images/a11y-clickable-area.png)
+我们将伪元素设置为绝对定位，并向外延伸一定距离，撑大按钮的实际大小。但是绝对定位的伪元素不在文档流中，因此按钮本体可以保持原有大小，做到了既要又要。
+
+如果你的可交互元素是动态的，也可以动态计算绝对定位的取值，如
+```css
+button::after {
+  --inset: min(0px, calc((100% - 44px) / 2));
+  content: '';
+  position: absolute;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: var(--inset);
+  right: var(--inset);
+}
+```
+
+### 对比度
+
+WCGA 对文字和背景的最低对比度做了规定：
+
+|  | 普通文本 | 大字号文本 |
+| ---- | ---- | ----------- |
+| AA | 4.5 | 3 |
+| AAA | 7 | 4.5 |
+
+AAA 标准相对 AA 更高，我们应至少达到 AA 标准。
+在 Chrome中，当我们检查特定文本元素，可以看到浏览器为我们计算出的对比度
+![对比度调试](/blog-images/a11y-contrast.png)
+不过实际使用过程中，我发现有的时候浏览器没有给出这一项数值。这个时候可以使用第三方服务，如 [Color.review](https://color.review/) 和 [WebAIM: Contrast Checker](https://webaim.org/resources/contrastchecker/)。在 Color.review 中选择颜色并检查它是否符合 AA 或 AAA 标准很方便。
+
+#### Placeholder
+
+输入框内的 Placeholder 默认的对比度一般较低，因此需避免在其中添加重要信息。可以做一个测试：当去掉所有 Placeholder 后，检查是否仍然能够正确识别信息和操作。
+
+## 颜色
+
+由于每个人的颜色的辨别能力有限，因此我们在做 UI 设计时，不应当只通过颜色来传达信息。颜色应该被用来加强某种信息。比如一个红色的`DELETE`，`DELETE`文本用于传达信息，红色用于强调。
+
+为了模拟色盲、色弱人群的体验，可以在Chrome的Devtools中开启响应的色彩模拟（devtool -> rendering -> enable vision deficiencies）。
+![模拟色盲](/blog-images/vision-deficiencies-emulation.png)
+
+## 其他
+
+### 不要轻易修改的样式
+- `outline`：不要`outline: none`来去掉元素被聚焦时的默认边框，除非更换成更明显的样式。使用键盘的用户依赖该功能导航和选中可交互元素
+
+

@@ -33,6 +33,7 @@ export default function BlogPage({ frontmatter, code }) {
             role="button"
             className="group-hover:rotate-90 px-4 py-2 transition-transform"
             onClick={goTop}
+            title="回到顶部"
           >
             𝄇
             <VisuallyHidden>回到顶部</VisuallyHidden>
