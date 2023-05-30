@@ -1,9 +1,12 @@
+import { allPosts, type Post } from 'contentlayer/generated'
 import dayjs from 'dayjs'
+import { type GetStaticProps, type InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { getPostList } from '../lib/mdx'
 
-export default function Home({ posts }) {
+export default function Home({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
@@ -16,17 +19,17 @@ export default function Home({ posts }) {
           Latest
         </h2>
         <div className="space-y-12">
-          {posts.map(({ frontmatter, slug }) => (
+          {posts.map(({ title, date, summary, slug }) => (
             <Link key={slug} href={`/blog/${slug}`} className="group block">
               <h3>
                 <span className="text-2xl font-bold text-gray-600 bg-clip-text transition duration-1000 group-hover:text-opacity-0 group-hover:duration-100 bg-gradient-to-r from-indigo-500 via-sky-500 to-blue-500">
-                  {frontmatter.title}
+                  {title}
                 </span>
               </h3>
               <p className="text-sm text-gray-600">
-                {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
+                {dayjs(date).format('YYYY年MM月DD日')}
               </p>
-              <p className="text-gray-500">{frontmatter.summary}</p>
+              <p className="text-gray-500">{summary}</p>
             </Link>
           ))}
         </div>
@@ -35,13 +38,12 @@ export default function Home({ posts }) {
   )
 }
 
-export async function getStaticProps() {
-  const posts = getPostList().sort((a, b) =>
-    a.frontmatter.date > b.frontmatter.date ? -1 : 1
-  )
+export const getStaticProps: GetStaticProps<{
+  posts: Post[]
+}> = () => {
   return {
     props: {
-      posts,
-    }, // will be passed to the page component as props
+      posts: allPosts.sort((a, b) => (a.date > b.date ? -1 : 1)),
+    },
   }
 }

@@ -1,31 +1,37 @@
+import { allPosts, type Post } from 'contentlayer/generated'
 import dayjs from 'dayjs'
-import { getMDXComponent } from 'mdx-bundler/client'
+import type { MDXComponents } from 'mdx/types'
+import { type GetStaticProps, type InferGetStaticPropsType } from 'next'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import Head from 'next/head'
+import Image from 'next/image'
 import React from 'react'
+
 import { VisuallyHidden } from '../../components/VisuallyHidden'
-import { getPostBySlug, getPostList } from '../../lib/mdx'
 
 function goTop() {
   window.scrollTo(0, 0)
 }
 
-export default function BlogPage({ frontmatter, code }) {
-  const Component = React.useMemo(() => getMDXComponent(code), [code])
+export default function BlogPage({
+  post,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const MDXContent = useMDXComponent(post.body.code)
   return (
     <>
       <Head>
-        <title>{`${frontmatter.title} - Shio Y. Blog`}</title>
+        <title>{`${post.title} - Shio Y. Blog`}</title>
         <meta name="description" content="Post" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="py-20">
-        <h2 className="text-4xl md:text-5xl font-bold">{frontmatter.title}</h2>
+        <h2 className="text-4xl md:text-5xl font-bold">{post.title}</h2>
         <p className="text-sm pt-2 text-gray-500">
-          {dayjs(frontmatter.date).format('YYYY年MM月DD日')}
+          {dayjs(post.date).format('YYYY年MM月DD日')}
         </p>
       </div>
       <main className="prose max-w-none">
-        <Component />
+        <MDXContent />
       </main>
       <div className="mt-20 text-4xl flex justify-end">
         <div className="group">
@@ -44,19 +50,21 @@ export default function BlogPage({ frontmatter, code }) {
   )
 }
 
-export async function getStaticProps(context) {
-  const { params } = context
-  const post = await getPostBySlug(params.slug)
+export const getStaticProps: GetStaticProps<{
+  post: Post
+}> = ({ params }) => {
+  const post = allPosts.find((post) => post.slug === params?.slug)
 
-  return {
-    props: post,
+  if (!post) {
+    return { notFound: true }
   }
+
+  return { props: { post } }
 }
 
-export async function getStaticPaths() {
-  const posts = getPostList()
+export function getStaticPaths() {
   return {
-    paths: posts.map((post) => ({
+    paths: allPosts.map((post) => ({
       params: {
         slug: post.slug,
       },
