@@ -13,6 +13,25 @@ function goTop() {
   window.scrollTo(0, 0)
 }
 
+const ResponsiveImage = ({
+  src,
+  alt,
+  width,
+  height,
+}: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  <Image
+    className="mx-auto"
+    alt={alt}
+    src={src}
+    width={Number(width)}
+    height={Number(height)}
+  />
+)
+
+const mdxComponents: MDXComponents = {
+  Image: ResponsiveImage,
+}
+
 export default function BlogPage({
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -28,7 +47,7 @@ export default function BlogPage({
         <h2 className="text-4xl md:text-5xl font-bold">{post.title}</h2>
       </div>
       <main className="prose max-w-none">
-        <MDXContent />
+        <MDXContent components={mdxComponents} />
       </main>
       <p className="text-sm mt-10 text-gray-500 text-right">
         写于 {dayjs(post.date).format('YYYY年MM月DD日')}
