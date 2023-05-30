@@ -10,18 +10,17 @@
     "lint:staged": "lint-staged"
   },
   "dependencies": {
-    "@code-hike/mdx": "^0.7.2",
+    "@code-hike/mdx": "^0.8.3",
     "@splitbee/web": "^0.3.0",
     "contentlayer": "^0.3.2",
     "dayjs": "^1.11.7",
     "esbuild": "^0.14.49",
-    "gray-matter": "^4.0.3",
     "next": "^13.4.4",
     "next-contentlayer": "^0.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remark-gfm": "^3.0.1",
-    "shiki": "^0.10.1"
+    "shiki": "^0.14.2"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",

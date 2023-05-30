@@ -1,5 +1,10 @@
+import { remarkCodeHike } from '@code-hike/mdx'
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
+
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const theme = require('shiki/themes/material-theme-palenight.json')
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -23,7 +28,7 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Post],
   mdx: {
-    remarkPlugins: [remarkGfm],
-    // rehypePlugins: [highlight],
+    remarkPlugins: [remarkGfm, [remarkCodeHike, { theme, lineNumbers: true }]],
+    rehypePlugins: [],
   },
 })

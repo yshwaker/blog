@@ -26,13 +26,13 @@ export default function BlogPage({
       </Head>
       <div className="py-20">
         <h2 className="text-4xl md:text-5xl font-bold">{post.title}</h2>
-        <p className="text-sm pt-2 text-gray-500">
-          {dayjs(post.date).format('YYYY年MM月DD日')}
-        </p>
       </div>
       <main className="prose max-w-none">
         <MDXContent />
       </main>
+      <p className="text-sm mt-10 text-gray-500 text-right">
+        写于 {dayjs(post.date).format('YYYY年MM月DD日')}
+      </p>
       <div className="mt-20 text-4xl flex justify-end">
         <div className="group">
           <button
