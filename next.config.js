@@ -14,6 +14,10 @@ const nextConfig = {
       },
     ]
   },
+  i18n: {
+    locales: ['en', 'zh-Hans'],
+    defaultLocale: 'zh-Hans',
+  },
 }
 
 module.exports = nextConfig
