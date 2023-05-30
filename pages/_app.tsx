@@ -14,8 +14,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className="font-sans max-w-3xl mx-5vw md:mx-auto py-8">
       <h1 className="font-header text-xl">
-        <Link href="/">
-          <a className="text-gray-700 hover:text-black">Shio Y. Blog</a>
+        <Link href="/" className="text-gray-700 hover:text-black">
+          Shio Y. Blog
         </Link>
       </h1>
       <Component {...pageProps} />
