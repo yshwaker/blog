@@ -1,4 +1,4 @@
-import { getPostList } from '../lib/mdx'
+import { allPosts } from 'contentlayer/generated'
 
 const Sitemap = () => {}
 
@@ -8,7 +8,7 @@ export const getServerSideProps = ({ res }) => {
     production: 'https://shioyu.dev',
   }[process.env.NODE_ENV]
 
-  const paths = getPostList().map(({ slug }) => `${baseUrl}/blog/${slug}`)
+  const paths = allPosts.map(({ slug }) => `${baseUrl}/blog/${slug}`)
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${paths
