@@ -35,16 +35,6 @@ module.exports = {
         },
       }),
     },
-    fontFamily: {
-      header: [
-        'lora',
-        'Georgia',
-        'Cambria',
-        'Times New Roman',
-        'Times',
-        'serif',
-      ],
-    },
   },
   plugins: [
     require('@tailwindcss/typography'),

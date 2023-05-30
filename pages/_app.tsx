@@ -1,8 +1,12 @@
 import '@code-hike/mdx/dist/index.css'
 import splitbee from '@splitbee/web'
+import { Lora } from 'next/font/google'
 import Link from 'next/link'
 import { useEffect } from 'react'
+
 import '../styles/globals.css'
+
+const lora = Lora({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -13,7 +17,7 @@ function MyApp({ Component, pageProps }) {
   })
   return (
     <div className="font-sans max-w-3xl mx-5vw md:mx-auto py-8">
-      <h1 className="font-header text-xl">
+      <h1 className={`${lora.className} text-xl`}>
         <Link href="/" className="text-gray-700 hover:text-black">
           Shio Y. Blog
         </Link>
