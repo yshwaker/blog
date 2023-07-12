@@ -14,7 +14,7 @@
 
 @layer components {
   #__next {
-    background-image: conic-gradient(from -0.75turn at center, #fff, 10deg, #f3f3f3, 350deg, #eee);
+    background-image: conic-gradient(from -0.75turn at center, #fff, 10deg, #fafafa, 350deg, #eee);
     background-position: 0px 0px;
     background-size: 6px 5px;
   }
