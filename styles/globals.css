@@ -14,9 +14,9 @@
 
 @layer components {
   #__next {
-    background-image: radial-gradient(rgb(224, 224, 224) 5%, rgb(255, 255, 255) 5%);
+    background-image: conic-gradient(from -0.75turn at center, #fff, 10deg, #f3f3f3, 350deg, #eee);
     background-position: 0px 0px;
-    background-size: 25px 25px;
+    background-size: 6px 5px;
   }
 
   .btn-small {
