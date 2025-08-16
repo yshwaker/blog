@@ -1,7 +1,0 @@
-.ch-codeblock {
-  @apply shadow-md shadow-slate-500;
-}
-
-.ch-code-scroll-parent {
-  @apply leading-6 font-mono;
-}

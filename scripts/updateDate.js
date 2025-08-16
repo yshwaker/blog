@@ -1,5 +1,5 @@
-const fs = require('fs').promises
-const matter = require('gray-matter')
+import { promises as fs } from 'fs'
+import matter from 'gray-matter'
 
 const updateFrontmatter = async () => {
   const [, , ...mdFilePaths] = process.argv

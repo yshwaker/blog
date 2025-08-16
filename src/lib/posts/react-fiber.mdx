@@ -2,7 +2,7 @@
 title: 谈谈 React Fiber
 date: '2022-10-22'
 summary: React Fiber 的原理
-updatedOn: '2023-05-30T16:21:29.159Z'
+updatedOn: '2025-08-16T15:41:37.975Z'
 ---
 ## 什么是 React Fiber
 React 16 起开始使用的 reconciler
@@ -42,7 +42,7 @@ type Fiber = {
 由于每个 fiber 包含上述相关 fiber 的指针，因此每个 fiber 处理结束后可以返回下一个需要处理的 fiber 是什么。这为 Fiber 树更新阶段的**可中断**特性提供基础。程序不再需要依靠调用栈来跟踪它在树中的位置以供回溯 ( 递归遍历树的原理 )
 ### 页面初始渲染时期
 DFS 遍历为每个 React element 创建 fiber，形成 Fiber Tree
-<Image src="/blog-images/fiber-tree.png" width={1295 / 2} height={1065 / 2} alt="fiber tree"/>
+<img src="/blog-images/fiber-tree.png" width={1295 / 2} height={1065 / 2} alt="fiber tree" style="margin: 0 auto; display: block;"/>
 
 ### 页面更新时期
 与之前不同的是，对于每一个更新任务，React Fiber 将更新过程分为两个阶段：渲染阶段和提交 commit 阶段

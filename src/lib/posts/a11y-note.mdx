@@ -2,7 +2,7 @@
 title: 网站无障碍化
 date: '2023-05-26'
 summary: 有关 a11y 的若干技巧
-updatedOn: '2023-05-30T16:21:29.156Z'
+updatedOn: '2025-08-16T15:41:37.968Z'
 ---
 
 
@@ -51,13 +51,13 @@ updatedOn: '2023-05-30T16:21:29.156Z'
 ### 文字的大小和排布
 
 字体的大小不应小于 16px。根据 [WCAG](https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html)的规范，行高至少需要 1.5。而中文没有英文那样较大的上伸部（ascender）和下延部（descender）空白区域，所以个人认为可以行高可以更大一些。
-<Image src="/blog-images/a11y-text.png" width={402} height={85} alt="中英文字体上下空白区域对比"/>
+<img src="/blog-images/a11y-text.png" width={402} height={85} alt="中英文字体上下空白区域对比" style="margin: 0 auto; display: block;"/>
 
 
 #### 响应式设计中断点的单位
 
 通常我们在`@media`规则中使用如`500px`，`1100px`，`1500px`等断点来区分手机、平台、PC等不同使用场景。但是当我们预期用户会修改浏览器的默认字体大小时，这样的断点设置方式是否合理呢？
-<Image src="/blog-images/default-font-size-setting.png" width={1592  / 2} height={304 / 2} alt="默认字体大小设置"/>
+<img src="/blog-images/default-font-size-setting.png" width={1592  / 2} height={304 / 2} alt="默认字体大小设置" style="margin: 0 auto; display: block;"/>
 
 在浏览器默认设置下文本的字体是 16px，相对于 1600px 的显示器来说，是 100 倍的比例。但是当用户选择了更大的字体设置时（比如增大一倍），其相对比例就变成了 50倍。从文字和屏幕比例关系来说，相当于用户处在一个800px的显示设备上。那么此时如果仍然保持原有布局，一定会显得比较拥挤。更合适的做法应该是使用`500px ~ 1100px`所对应的手机端布局。
 
@@ -84,7 +84,7 @@ button::after {
   inset: -8px;
 }
 ```
-<Image src="/blog-images/a11y-clickable-area.png" width={414 / 2} height={434 / 2} alt="可点击预期演示"/>
+<img src="/blog-images/a11y-clickable-area.png" width={414 / 2} height={434 / 2} alt="可点击预期演示" style="margin: 0 auto; display: block;"/>
 
 我们将伪元素设置为绝对定位，并向外延伸一定距离，撑大按钮的实际大小。但是绝对定位的伪元素不在文档流中，因此按钮本体可以保持原有大小，做到了既要又要。
 
@@ -112,7 +112,7 @@ WCGA 对文字和背景的最低对比度做了规定：
 
 AAA 标准相对 AA 更高，我们应至少达到 AA 标准。
 在 Chrome中，当我们检查特定文本元素，可以看到浏览器为我们计算出的对比度
-<Image src="/blog-images/a11y-contrast.png" width={670 / 2} height={484 / 2} alt="对比度调试"/>
+<img src="/blog-images/a11y-contrast.png" width={670 / 2} height={484 / 2} alt="对比度调试" style="margin: 0 auto; display: block;"/>
 
 
 不过实际使用过程中，我发现有的时候浏览器没有给出这一项数值。这个时候可以使用第三方服务，如 [Color.review](https://color.review/) 和 [WebAIM: Contrast Checker](https://webaim.org/resources/contrastchecker/)。在 Color.review 中选择颜色并检查它是否符合 AA 或 AAA 标准很方便。
@@ -126,7 +126,7 @@ AAA 标准相对 AA 更高，我们应至少达到 AA 标准。
 由于每个人的颜色的辨别能力有限，因此我们在做 UI 设计时，不应当只通过颜色来传达信息。颜色应该被用来加强某种信息。比如一个红色的`DELETE`，`DELETE`文本用于传达信息，红色用于强调。
 
 为了模拟色盲、色弱人群的体验，可以在Chrome的Devtools中开启响应的色彩模拟（devtool -> rendering -> enable vision deficiencies）。
-<Image src="/blog-images/vision-deficiencies-emulation.png" width={968 / 2} height={684 / 2} alt="模拟色盲"/>
+<img src="/blog-images/vision-deficiencies-emulation.png" width={968 / 2} height={684 / 2} alt="模拟色盲" style="margin: 0 auto; display: block;"/>
 
 
 ## 其他

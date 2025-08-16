@@ -2,9 +2,12 @@
 title: KMP 算法的个人总结
 date: '2023-02-10'
 summary: ''
-updatedOn: '2023-05-30T16:21:29.159Z'
+updatedOn: '2025-08-16T15:41:37.974Z'
 ---
-import { KMPDemo1, KMPDemo2 } from '../../components/KMP'
+
+<script>
+  import KMP from '$lib/components/KMP.svelte'
+</script>
 
 KMP 算法是用于解决字符串匹配问题的高效算法。
 
@@ -22,7 +25,7 @@ KMP 算法是用于解决字符串匹配问题的高效算法。
 
 要实现这一目的，我们只能从已有的信息中获取线索。假设上一次匹配过程中能够匹配上的最大字串为 `abcab`:
 
-<KMPDemo1 />
+<KMP demo={1} />
 
 可以看到 P 移动 1 或者 2 个位置显然是不可能的，因为
 -   `abca != bcab`
@@ -43,7 +46,7 @@ KMP 算法是用于解决字符串匹配问题的高效算法。
 
 例如模式串 P 如下，假设我们已知 next[0]到 next[x-1]的值，要求 next[x]。
 
-<KMPDemo2 />
+<KMP demo={2} />
 
 通过 next[x-1]可知长度为 now 的子串 A ( T[0:5] ) 和 B ( T[9:13] ) 相等。因此只要判断 p[now+1]与 p[x]是否相等即可
 -   如果相等，则 next[x]=next[x-1] + 1。

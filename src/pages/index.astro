@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import dayjs from 'dayjs'
+import heptabaseLinks from '../../static/heptabase-links.json'
+
+const posts = await getCollection('posts')
+const sortedPosts = posts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+---
+
+<BaseLayout>
+  <main>
+    <h2 class="text-5xl text-shadow shadow-gray-400 font-bold text-gray-800 py-16">
+      Post
+    </h2>
+    <div class="space-y-12">
+      {sortedPosts.map(({ data, slug }) => (
+        <a href={`/blog/${slug}`} class="group block">
+          <h3>
+            <span class="text-2xl font-bold text-gray-600 bg-clip-text transition duration-1000 group-hover:text-opacity-0 group-hover:duration-100 bg-gradient-to-r from-indigo-500 via-sky-500 to-blue-500">
+              {data.title}
+            </span>
+          </h3>
+          <p class="text-sm text-gray-600">
+            {dayjs(data.date).format('YYYY年MM月DD日')}
+          </p>
+          <p class="text-gray-500">{data.summary}</p>
+        </a>
+      ))}
+    </div>
+    <h2 class="text-5xl text-shadow shadow-gray-400 font-bold text-gray-800 py-16">
+      Note
+    </h2>
+    <div class="space-y-12">
+      {heptabaseLinks.map(({ title, date, url }) => (
+        <a href={url} class="group block">
+          <h3>
+            <span class="text-2xl font-bold text-gray-600 bg-clip-text transition duration-1000 group-hover:text-opacity-0 group-hover:duration-100 bg-gradient-to-r from-indigo-500 via-sky-500 to-blue-500">
+              {title}
+            </span>
+          </h3>
+          <p class="text-sm text-gray-600">
+            {dayjs(date).format('YYYY年MM月DD日')}
+          </p>
+        </a>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

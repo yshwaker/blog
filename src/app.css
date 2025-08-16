@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'codehike.css';
 
 @layer base {
   @media (prefers-reduced-motion: no-preference) {
@@ -9,16 +8,15 @@
       scroll-behavior: smooth;
     }
   }
-
-}
-
-@layer components {
-  #__next {
+  
+  body {
     background-image: conic-gradient(from -0.75turn at center, #fff, 10deg, #fafafa, 350deg, #eee);
     background-position: 0px 0px;
     background-size: 6px 5px;
   }
+}
 
+@layer components {
   .btn-small {
     @apply bg-blue-500 hover:brightness-110 transition text-white font-bold py-1 px-2 rounded;
   }
@@ -27,5 +25,9 @@
 @layer utilities {
   .clip-hidden {
     clip: rect(0, 0, 0, 0)
+  }
+  
+  .font-lora {
+    font-family: 'Lora', serif;
   }
 }
