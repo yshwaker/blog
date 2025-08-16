@@ -1,34 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
+updatedOn: '2025-08-16T16:51:13.526Z'
+---
+# Personal Blog
+
+A modern, fast, and clean personal blog built with SvelteKit and styled with Tailwind CSS v4. Features technical articles about web development, algorithms, and programming concepts.
+
+## Features
+
+- ⚡ **SvelteKit** - Modern web framework with SSG
+- 🎨 **Tailwind CSS v4** - Latest utility-first CSS framework
+- 📝 **MDX Support** - Write blog posts in Markdown with Svelte components
+- 🌙 **Typography Plugin** - Beautiful typographic styling for content
+- 🚀 **Static Generation** - Fast loading with pre-rendered pages
+- 📱 **Responsive Design** - Mobile-first responsive layout
+- 🔍 **SEO Optimized** - Meta tags and semantic HTML
+- 🖥️ **Interactive Components** - Custom Svelte components for algorithms
+
+## Tech Stack
+
+- **Framework**: SvelteKit
+- **Styling**: Tailwind CSS v4 with Typography plugin
+- **Content**: MDX with mdsvex
+- **Language**: TypeScript
+- **Package Manager**: pnpm
+- **Node.js**: 22.x
+- **Build Output**: Static site in `/public`
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 22.x (see `.node-version`)
+- pnpm 9.5.0+
+
+### Development
 
 ```bash
-npm run dev
-# or
-yarn dev
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:5173](http://localhost:5173) to view the blog.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Building
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+# Build for production
+pnpm build
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Preview production build
+pnpm preview
+```
 
-## Learn More
+The built site will be generated in the `/public` directory.
 
-To learn more about Next.js, take a look at the following resources:
+## Content Management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Blog posts are written in MDX format and stored in `/src/lib/posts/`. Each post requires:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `title` - Post title
+- `date` - Publication date
+- `summary` - Brief description
+- `updatedOn` (optional) - Last modified date
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── src/
+│   ├── lib/
+│   │   ├── posts/           # Blog posts (MDX)
+│   │   └── components/      # Svelte components
+│   ├── routes/              # SvelteKit routes
+│   └── app.css             # Global styles
+├── static/                  # Static assets
+├── public/                  # Built site (generated)
+└── scripts/                 # Build scripts
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Commands
+
+```bash
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm preview      # Preview production build
+pnpm check        # Run Svelte type checking
+pnpm lint         # Run ESLint
+```
