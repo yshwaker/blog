@@ -1,0 +1,226 @@
+{
+  ".svelte-kit/generated/client-optimized/app.js": {
+    "file": "_app/immutable/entry/app.Cem0HihY.js",
+    "name": "entry/app",
+    "src": ".svelte-kit/generated/client-optimized/app.js",
+    "isEntry": true,
+    "imports": [
+      "_web.esm.FqSqbAbk.js",
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/generated/client-optimized/nodes/0.js",
+      ".svelte-kit/generated/client-optimized/nodes/1.js",
+      ".svelte-kit/generated/client-optimized/nodes/2.js",
+      ".svelte-kit/generated/client-optimized/nodes/3.js"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/0.js": {
+    "file": "_app/immutable/nodes/0.DsgsNoHB.js",
+    "name": "nodes/0",
+    "src": ".svelte-kit/generated/client-optimized/nodes/0.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_web.esm.FqSqbAbk.js",
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ],
+    "dynamicImports": [
+      "_web.esm.FqSqbAbk.js"
+    ],
+    "css": [
+      "_app/immutable/assets/0.CxYPVC-Y.css"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/1.js": {
+    "file": "_app/immutable/nodes/1.BCsH-bak.js",
+    "name": "nodes/1",
+    "src": ".svelte-kit/generated/client-optimized/nodes/1.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js",
+      "_singletons.C5jvMjXM.js"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/2.js": {
+    "file": "_app/immutable/nodes/2.B4zw9r4h.js",
+    "name": "nodes/2",
+    "src": ".svelte-kit/generated/client-optimized/nodes/2.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_dayjs.min.BMywoe3Y.js",
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js",
+      "_each.-gASlQSi.js"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/3.js": {
+    "file": "_app/immutable/nodes/3.BWCk_ITI.js",
+    "name": "nodes/3",
+    "src": ".svelte-kit/generated/client-optimized/nodes/3.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_dayjs.min.BMywoe3Y.js",
+      "_control.CYgJF_JY.js",
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ],
+    "css": [
+      "_app/immutable/assets/3.bDRZIAyZ.css"
+    ]
+  },
+  "_control.CYgJF_JY.js": {
+    "file": "_app/immutable/chunks/control.CYgJF_JY.js",
+    "name": "control"
+  },
+  "_dayjs.min.BMywoe3Y.js": {
+    "file": "_app/immutable/chunks/dayjs.min.BMywoe3Y.js",
+    "name": "dayjs.min",
+    "imports": [
+      "_web.esm.FqSqbAbk.js"
+    ],
+    "dynamicImports": [
+      "src/lib/posts/a11y-note.mdx",
+      "src/lib/posts/async-await-under-the-hood.mdx",
+      "src/lib/posts/better-back-button-using-react-router.mdx",
+      "src/lib/posts/how-to-learn-shuangpin.mdx",
+      "src/lib/posts/implementing-promise.mdx",
+      "src/lib/posts/kmp-algorithm.mdx",
+      "src/lib/posts/react-fiber.mdx",
+      "src/lib/posts/static-vs-extern-in-C.mdx",
+      "src/lib/posts/a11y-note.mdx",
+      "src/lib/posts/async-await-under-the-hood.mdx",
+      "src/lib/posts/better-back-button-using-react-router.mdx",
+      "src/lib/posts/how-to-learn-shuangpin.mdx",
+      "src/lib/posts/implementing-promise.mdx",
+      "src/lib/posts/kmp-algorithm.mdx",
+      "src/lib/posts/react-fiber.mdx",
+      "src/lib/posts/static-vs-extern-in-C.mdx"
+    ]
+  },
+  "_each.-gASlQSi.js": {
+    "file": "_app/immutable/chunks/each.-gASlQSi.js",
+    "name": "each"
+  },
+  "_index.BB1_hVuL.js": {
+    "file": "_app/immutable/chunks/index.BB1_hVuL.js",
+    "name": "index",
+    "imports": [
+      "_scheduler.Bwf3gQP1.js"
+    ]
+  },
+  "_scheduler.Bwf3gQP1.js": {
+    "file": "_app/immutable/chunks/scheduler.Bwf3gQP1.js",
+    "name": "scheduler"
+  },
+  "_singletons.C5jvMjXM.js": {
+    "file": "_app/immutable/chunks/singletons.C5jvMjXM.js",
+    "name": "singletons",
+    "imports": [
+      "_scheduler.Bwf3gQP1.js"
+    ]
+  },
+  "_web.esm.FqSqbAbk.js": {
+    "file": "_app/immutable/chunks/web.esm.FqSqbAbk.js",
+    "name": "web.esm",
+    "isDynamicEntry": true
+  },
+  "node_modules/.pnpm/@sveltejs+kit@2.0.0_@sveltejs+vite-plugin-svelte@3.0.0_svelte@4.2.7_vite@5.4.19/node_modules/@sveltejs/kit/src/runtime/client/start.js": {
+    "file": "_app/immutable/entry/start.SDtnEoEO.js",
+    "name": "entry/start",
+    "src": "node_modules/.pnpm/@sveltejs+kit@2.0.0_@sveltejs+vite-plugin-svelte@3.0.0_svelte@4.2.7_vite@5.4.19/node_modules/@sveltejs/kit/src/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_singletons.C5jvMjXM.js",
+      "_control.CYgJF_JY.js"
+    ]
+  },
+  "src/lib/posts/a11y-note.mdx": {
+    "file": "_app/immutable/chunks/a11y-note.7pYBXOPZ.js",
+    "name": "a11y-note",
+    "src": "src/lib/posts/a11y-note.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/async-await-under-the-hood.mdx": {
+    "file": "_app/immutable/chunks/async-await-under-the-hood.-9zsd-6Z.js",
+    "name": "async-await-under-the-hood",
+    "src": "src/lib/posts/async-await-under-the-hood.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/better-back-button-using-react-router.mdx": {
+    "file": "_app/immutable/chunks/better-back-button-using-react-router.BwtgGkSW.js",
+    "name": "better-back-button-using-react-router",
+    "src": "src/lib/posts/better-back-button-using-react-router.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/how-to-learn-shuangpin.mdx": {
+    "file": "_app/immutable/chunks/how-to-learn-shuangpin.CK891PF4.js",
+    "name": "how-to-learn-shuangpin",
+    "src": "src/lib/posts/how-to-learn-shuangpin.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/implementing-promise.mdx": {
+    "file": "_app/immutable/chunks/implementing-promise.CbLyak87.js",
+    "name": "implementing-promise",
+    "src": "src/lib/posts/implementing-promise.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/kmp-algorithm.mdx": {
+    "file": "_app/immutable/chunks/kmp-algorithm.CTKt4Jum.js",
+    "name": "kmp-algorithm",
+    "src": "src/lib/posts/kmp-algorithm.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js",
+      "_each.-gASlQSi.js"
+    ]
+  },
+  "src/lib/posts/react-fiber.mdx": {
+    "file": "_app/immutable/chunks/react-fiber.EoH1Og-c.js",
+    "name": "react-fiber",
+    "src": "src/lib/posts/react-fiber.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  },
+  "src/lib/posts/static-vs-extern-in-C.mdx": {
+    "file": "_app/immutable/chunks/static-vs-extern-in-C.jdHXQIac.js",
+    "name": "static-vs-extern-in-C",
+    "src": "src/lib/posts/static-vs-extern-in-C.mdx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_scheduler.Bwf3gQP1.js",
+      "_index.BB1_hVuL.js"
+    ]
+  }
+}

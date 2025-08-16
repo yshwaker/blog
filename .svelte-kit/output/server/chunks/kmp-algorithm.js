@@ -1,0 +1,74 @@
+import { c as create_ssr_component, d as each, e as escape, v as validate_component } from "./ssr.js";
+const KMP = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { demo = 1 } = $$props;
+  let offset = 0;
+  if ($$props.demo === void 0 && $$bindings.demo && demo !== void 0) $$bindings.demo(demo);
+  return `${demo === 1 ? `<div class="border-2 border-dashed rounded-lg border-gray-400 p-4"><div class="flex flex-row">${each(Array.from("abcabx?"), (char, i) => {
+    return `<div class="-ml-0.5 w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50">${escape(char)} </div>`;
+  })}</div> <div class="inline-flex flex-row mt-2 relative" style="${"left: " + escape(offset * 8.5 / 4, true) + "rem"}">${each(Array.from("abcabd"), (char, i) => {
+    let T = "abcabx?", color = T[i + offset] === char ? "bg-green-300" : "bg-red-300";
+    return `  <div class="${"-ml-0.5 w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50 " + escape(color, true)}">${escape(char)} </div>`;
+  })}</div> <div class="mt-2"><button type="button" class="btn-small" data-svelte-h="svelte-1ud2lzn">向左移动</button> <button type="button" class="btn-small ml-2" data-svelte-h="svelte-rbkp9n">向右移动</button></div></div>` : `${demo === 2 ? (() => {
+    let T = "abcabdddabcabc", index = Array.from(Array(14)).map((_, i) => i + 1), indexWithMarkers = [...index], next = "0001200012345?";
+    return `     <div class="border-2 border-dashed rounded-lg border-gray-400 p-2 md:p-4"><div class="flex flex-row items-center"><label class="w-20 hidden md:block" data-svelte-h="svelte-4o7d0a">主串 T：</label> <label class="w-4 text-sm md:hidden" data-svelte-h="svelte-1dqdgyq">T：</label> ${each(Array.from(T), (char, i) => {
+      let color = i < 5 || i >= 8 && i <= 12 ? "bg-green-300" : i === 5 || i === 13 ? "bg-red-300" : "";
+      return ` <div class="${"-ml-0.5 w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50 " + escape(color, true)}">${escape(char)} </div>`;
+    })}</div> <div class="flex flex-row mt-2 items-center"><label class="w-20 hidden md:block" data-svelte-h="svelte-6ujfin">Index：</label> <label class="w-4 text-sm md:hidden" data-svelte-h="svelte-1a73g31">I：</label> ${each(indexWithMarkers, (char, i) => {
+      let displayChar = i === 5 ? "now" : i === 13 ? "x" : char;
+      return ` <div class="-ml-0.5 w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50">${escape(displayChar)} </div>`;
+    })}</div> <div class="flex flex-row mt-2 items-center"><label class="w-20 hidden md:block" data-svelte-h="svelte-njk13p">模式串 P：</label> <label class="w-4 text-sm md:hidden" data-svelte-h="svelte-aad6am">P：</label> ${each(Array.from(next), (char) => {
+      return `<div class="-ml-0.5 w-9 h-9 text-sm md:text-base min-w-0 border-2 border-black flex justify-center gap items-center bg-gray-50">${escape(char)} </div>`;
+    })}</div></div>`;
+  })() : ``}`}`;
+});
+const metadata = {
+  "title": "KMP 算法的个人总结",
+  "date": "2023-02-10",
+  "summary": "",
+  "updatedOn": "2025-08-16T15:41:37.974Z"
+};
+const { title, date, summary, updatedOn } = metadata;
+const Kmp_algorithm = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  return `<p data-svelte-h="svelte-1p4kz2c">KMP 算法是用于解决字符串匹配问题的高效算法。</p> <h2 data-svelte-h="svelte-19ujkxt">字符串匹配问题</h2> <p data-svelte-h="svelte-1o7xjum">对于两个字符串 T ( 主串 ) 、P ( 模式串 ) ，T 是否包含 P，如果是，那么它在 T 的什么位置。一个典型的应用场景就是一段代码中搜索目标关键字如 <code>function</code>，文本编辑器需要找到它们的位置并高亮。</p> <h2 data-svelte-h="svelte-16im74i">朴素解法</h2> <p data-svelte-h="svelte-1p91qfl">从 T 的每个字符开始，与 P 进行字符的逐一匹配检测。可以想象 T 是一段铺在铁轨上的标识，P 是铁轨上的一段列车。列车每移动一格，就查看列车的每个车厢是否与铁轨上的标识相一致。</p> <h2 data-svelte-h="svelte-fyap0u">KMP 算法</h2> <p data-svelte-h="svelte-wy0nf2">每次匹配失败后，P 只能位移一格显得有些效率低下了。有没有什么办法让它排除掉显然不可能的情况，从而一次多移动几格呢。</p> <p data-svelte-h="svelte-1kktfnp">要实现这一目的，我们只能从已有的信息中获取线索。假设上一次匹配过程中能够匹配上的最大字串为 <code>abcab</code>:</p> ${validate_component(KMP, "KMP").$$render($$result, { demo: 1 }, {}, {})} <p data-svelte-h="svelte-6o16tp">可以看到 P 移动 1 或者 2 个位置显然是不可能的，因为</p> <ul data-svelte-h="svelte-1la5p2f"><li><code>abca != bcab</code></li> <li><code>abc != bca</code></li></ul> <p data-svelte-h="svelte-12kl2fg">而 P 移动 3 步尚有一试的可能，因为 <code>ab == ab</code>。</p> <p data-svelte-h="svelte-wyx6r1">我们发现上述不等式中，左侧是 P 的前 k 个字符 ( 前缀 ) ，右侧是 P 的后 k 个字符 ( 后缀 ) 。因此我们只需要找到最大的一个 k，使得左侧和右侧相等，从而使 P 可以移动多步，来进行下一次匹配。如上述实例中，<code>abcab</code> 最大 k=2 ( 前缀’ab’=后缀’ab’ ) ，P 可以向前移动 3 步。</p> <p data-svelte-h="svelte-137at9m">在实际匹配中，临时计算已匹配字符串的最大 k 显然不够效率。我们知道已匹配的字符串永远是 P 的前缀子串，因此可以预制好一个 next 数组，用于存储每个子串所对应的最大 k。</p> <blockquote data-svelte-h="svelte-nd2smr"><p>具体定义：next[i]：对于模式串 P 中[0, i]区间内的子串，使其 k 个字符前缀与 k 个字符后缀相等的最大 k 的值</p></blockquote> <h3 data-svelte-h="svelte-41y1ck">如何预制 Next 数组</h3> <p data-svelte-h="svelte-1czxih4">我们当然可以从长度 1 开始，从两边开始遍历判断前缀和后缀是否相等，当然这样的复杂度就来到了 <code>O(m^2)</code> (m=p.length) ，并不高效。</p> <p data-svelte-h="svelte-1n52pj8">仔细观察可以发现这竟然是一个动态规划问题，可以得出一个递推公式。</p> <p data-svelte-h="svelte-gvkm41">例如模式串 P 如下，假设我们已知 next[0]到 next[x-1]的值，要求 next[x]。</p> ${validate_component(KMP, "KMP").$$render($$result, { demo: 2 }, {}, {})} <p data-svelte-h="svelte-suvobz">通过 next[x-1]可知长度为 now 的子串 A ( T[0:5] ) 和 B ( T[9:13] ) 相等。因此只要判断 p[now+1]与 p[x]是否相等即可</p> <ul data-svelte-h="svelte-13qr13k"><li>如果相等，则 next[x]=next[x-1] + 1。</li> <li>如果不相等，则 next[x]一定小于 now+1 了。下一个可能的情况是在 P[0..x-1]中找到一个 now2 长度的前缀和后缀，使其相等。接下来判断 P[now2]==P[x]。如果相同，则可以求出 next[x]=now2+1。如果不相同，则需要继续缩短 now2 的长度。</li></ul> <p data-svelte-h="svelte-1rdngx5">在此过程中，可以注意到 P[0..x]的一个 now2 长度的前缀和后缀一定出现在子串 A 和 B 中，而 A 和 B 是<strong>相等</strong>的。我们惊奇的发现这不就是一个相同问题的子问题吗，now2 的值不就存储在 next 数组中吗？即 now2 = next[now-1]。</p> <h3 data-svelte-h="svelte-xyepo4">代码</h3> <p data-svelte-h="svelte-1fawba1">因为 next 数组中新的元素总是由数组中已求的的元素得出的，所以可以使用动态规划的方法得到整个数组</p> <!-- HTML_TAG_START -->${`<pre class="shiki material-theme-palenight" style="background-color:#292D3E;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#676E95;font-style:italic">// 由于子串不能等于其本身，因此 next[0]为 0</span></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#BABED8"> next </span><span style="color:#89DDFF">=</span><span style="color:#BABED8">[</span><span style="color:#F78C6C">0</span><span style="color:#BABED8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#BABED8">x </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#BABED8">now </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> next[x </span><span style="color:#89DDFF">-</span><span style="color:#F78C6C"> 1</span><span style="color:#BABED8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">while</span><span style="color:#BABED8"> ( x </span><span style="color:#89DDFF">&#x3C;</span><span style="color:#BABED8"> p</span><span style="color:#89DDFF">.</span><span style="color:#BABED8">length ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">p</span><span style="color:#F07178">[</span><span style="color:#BABED8">now</span><span style="color:#F07178">] </span><span style="color:#89DDFF">===</span><span style="color:#BABED8"> p</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#F07178">] ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#BABED8">    next</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#F07178">] </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> now</span><span style="color:#89DDFF"> +</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#BABED8">    x</span><span style="color:#89DDFF"> +=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#BABED8">    now</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> next</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#89DDFF"> -</span><span style="color:#F78C6C"> 1</span><span style="color:#F07178">]</span></span>
+<span class="line"><span style="color:#89DDFF"> }</span><span style="color:#89DDFF;font-style:italic"> else</span><span style="color:#89DDFF;font-style:italic"> if</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">now</span><span style="color:#89DDFF"> ></span><span style="color:#F78C6C"> 0</span><span style="color:#F07178"> ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#BABED8">    now</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> next</span><span style="color:#F07178">[</span><span style="color:#BABED8">now</span><span style="color:#89DDFF"> -</span><span style="color:#F78C6C"> 1</span><span style="color:#F07178">]</span></span>
+<span class="line"><span style="color:#89DDFF"> }</span><span style="color:#89DDFF;font-style:italic"> else</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#676E95;font-style:italic">    // now = 0，即找不到符合要求的前后缀</span></span>
+<span class="line"><span style="color:#BABED8">    next</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#F07178">] </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#BABED8">    x</span><span style="color:#89DDFF"> +=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#BABED8">    now</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> next</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#89DDFF"> -</span><span style="color:#F78C6C"> 1</span><span style="color:#F07178">]</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>`}<!-- HTML_TAG_END --> <p data-svelte-h="svelte-xsypmb">我们得到了 next 数组后，接下来的操作就和朴素算法类似</p> <!-- HTML_TAG_START -->${`<pre class="shiki material-theme-palenight" style="background-color:#292D3E;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#C792EA">let</span><span style="color:#BABED8"> x </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span><span style="color:#676E95;font-style:italic"> // T 中当前匹配位置</span></span>
+<span class="line"><span style="color:#C792EA">let</span><span style="color:#BABED8"> y </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span><span style="color:#676E95;font-style:italic"> // P 中当前匹配位置</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">while</span><span style="color:#BABED8"> ( x </span><span style="color:#89DDFF">&#x3C;</span><span style="color:#BABED8"> t</span><span style="color:#89DDFF">.</span><span style="color:#BABED8">length ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">t</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#F07178">] </span><span style="color:#89DDFF">===</span><span style="color:#BABED8"> p</span><span style="color:#F07178">[</span><span style="color:#BABED8">y</span><span style="color:#F07178">] ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#BABED8">    x</span><span style="color:#89DDFF">++</span></span>
+<span class="line"><span style="color:#BABED8">    y</span><span style="color:#89DDFF">++</span></span>
+<span class="line"><span style="color:#89DDFF"> }</span><span style="color:#89DDFF;font-style:italic"> else</span><span style="color:#89DDFF;font-style:italic"> if</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">y</span><span style="color:#89DDFF"> ></span><span style="color:#F78C6C"> 0</span><span style="color:#F07178"> ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#BABED8">    y</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> next</span><span style="color:#F07178">[</span><span style="color:#BABED8">y</span><span style="color:#89DDFF"> -</span><span style="color:#F78C6C"> 1</span><span style="color:#F07178">] </span><span style="color:#676E95;font-style:italic">// 为匹配成功，y 向左移动相当于 P 向右移动了</span></span>
+<span class="line"><span style="color:#89DDFF"> }</span><span style="color:#89DDFF;font-style:italic"> else</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#BABED8">    x</span><span style="color:#89DDFF"> ++</span><span style="color:#676E95;font-style:italic">  // y == 0, 说明 T 和 P 的第一个字符就不匹配，x 向后移动</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">y</span><span style="color:#89DDFF"> ===</span><span style="color:#BABED8"> p</span><span style="color:#89DDFF">.</span><span style="color:#BABED8">length</span><span style="color:#F07178"> ) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#676E95;font-style:italic">    // 输出匹配字符串在 T 中的起始位置</span></span>
+<span class="line"><span style="color:#BABED8">    console</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">log</span><span style="color:#F07178"> ( </span><span style="color:#BABED8">x</span><span style="color:#89DDFF"> -</span><span style="color:#BABED8"> y</span><span style="color:#F07178"> )</span></span>
+<span class="line"><span style="color:#BABED8">    y</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> next</span><span style="color:#F07178">[</span><span style="color:#BABED8">x</span><span style="color:#89DDFF"> -</span><span style="color:#F78C6C"> 1</span><span style="color:#F07178">]</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>`}<!-- HTML_TAG_END --> <h2 data-svelte-h="svelte-gwd3ws">Refer</h2> <ul data-svelte-h="svelte-fonq8f"><li><a href="https://www.zhihu.com/question/21923021/answer/1032665486" rel="nofollow">如何更好地理解和掌握 KMP 算法?</a></li></ul>`;
+});
+export {
+  Kmp_algorithm as default,
+  metadata
+};

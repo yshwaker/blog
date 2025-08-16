@@ -36,7 +36,6 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
     function ({ matchUtilities, theme }) {
       matchUtilities(
         {
