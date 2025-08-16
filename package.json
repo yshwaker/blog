@@ -17,7 +17,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/typography": "0.5.16",
-    "@types/node": "^18.16.19",
+    "@types/node": "^22.17.2",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
     "eslint": "^8.56.0",
@@ -40,6 +40,9 @@
     "shiki": "^1.10.3"
   },
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "prettier": {
     "singleQuote": true,
     "semi": false
