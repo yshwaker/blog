@@ -1,16 +1,5 @@
 <script lang="ts">
   import '../app.css'
-  import { onMount } from 'svelte'
-  
-  onMount(async () => {
-    if (typeof window !== 'undefined') {
-      const { init } = await import('@splitbee/web')
-      init({
-        scriptUrl: '/bee.js',
-        apiUrl: '/_hive',
-      })
-    }
-  })
 </script>
 
 <svelte:head>

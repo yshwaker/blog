@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@splitbee/web':
-    specifier: ^0.3.0
-    version: 0.3.0
   dayjs:
     specifier: ^1.11.9
     version: 1.11.9
@@ -593,10 +590,6 @@ packages:
     resolution: {integrity: sha512-D45PMaBaeDHxww+EkcDQtDAtzv00Gcsp72ukBtaLSmqRvh0WgGMq3Al0rl1QQBZfuneO75NXMIzEZGFitThWbg==}
     dependencies:
       '@types/hast': 3.0.4
-    dev: false
-
-  /@splitbee/web@0.3.0:
-    resolution: {integrity: sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==}
     dev: false
 
   /@sveltejs/adapter-static@3.0.1(@sveltejs/kit@2.0.0):

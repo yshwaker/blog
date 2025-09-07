@@ -1,5 +1,5 @@
 ---
-updatedOn: '2025-08-16T15:41:37.962Z'
+updatedOn: '2025-09-07T12:17:16.060Z'
 ---
 # CLAUDE.md
 
@@ -30,7 +30,6 @@ pnpm lint:staged  # Run ESLint on staged files (used by Husky)
 - **Content**: MDX files processed with mdsvex
 - **Styling**: Tailwind CSS with @tailwindcss/typography
 - **Code Highlighting**: Shiki with Material Theme Palenight
-- **Analytics**: Splitbee integration
 
 ### Key Directories
 - `/src/lib/posts/` - MDX blog posts
