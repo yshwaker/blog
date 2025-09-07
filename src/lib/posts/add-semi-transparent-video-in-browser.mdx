@@ -1,0 +1,78 @@
+---
+title: 如何在浏览器中添加半透明的动画
+date: '2025-09-07'
+summary: >-
+  浏览器中实现半透明动画的实践方案：Chrome 采用 VP9 编码的 WebM，Safari 采用带 Alpha 通道的
+  HEVC（hvc1），生成流程与兼容性注意事项
+updatedOn: '2025-09-07T13:34:28.607Z'
+---
+
+前段时间需要在项目里添加一个半透明的特效。刚开始考虑使用APNG格式直接引入，但是导出后文件动辄十几M的大小是的这个方案几乎不可用。于是将目光投向了支持透明通道的视频格式。网上对它的相关文档不多，于是在一番实测和调研之后整理如下。
+
+## TLDR
+
+针对Chrome浏览器：使用VP9编码的webm视频格式
+
+针对Safari浏览器：使透明通道的hevc格式视频
+
+```vue
+<video playsInline autoPlay muted loop>
+  <source
+    v-if="isSafari"
+    src="/path/to/video.mov"
+    type="video/mp4; codecs=hvc1"
+    @error="handleVideoError"
+  />
+  <source v-else src="/path/to/video.webm" type="video/webm" @error="handleVideoError" />
+</video>
+```
+
+## 如何生成webm视频
+
+通过ffmpeg将一串png图片序列转换成VP9编码的web格式视频
+
+```bash
+ffmpeg -framerate 24 -i  "frame%d.png" -c:v libvpx-vp9 -pix_fmt yuva420p "bg2.webm"
+```
+
+可以添加`-lossless 1`来获得不损的视频，但是实测得到的文件太大了，和apng格式的不相上下，于是去掉了这个选项，得到结果尚可以接受。
+
+小贴士：
+
+在mac的finder中可以直接批量重新命名得到自增编号的文件序列
+
+![在 Finder 中批量重命名生成自增序列](/blog-images/finder-bulk-rename-numbering.png)
+
+## 生成hevc视频
+
+当前的Safari虽然支持webm格式的视频，但是不支持带透明度的webm视频。取而代之的是它支持带alpha通道的hevc视频。麻烦的是转换的步骤需要在MacOS上进行。
+
+首先在AfterEffect中导出：
+
+![After Effects 导出设置：Apple ProRes 4444](/blog-images/after-effects-export-prores-4444.png)
+
+值得主要的是其中导出成Apple ProRes 4444。
+
+然后就可以在finder中右键选择生成出的视频文件,并编码成保留透明度的HEVC即可。
+
+![Finder 右键转码：HEVC 保留透明通道](/blog-images/finder-encode-hevc-with-alpha.png)
+
+![HEVC 编码设置界面（保留 Alpha）](/blog-images/finder-encode-hevc-settings.png)
+
+注意：如果到处的视频色彩有点灰暗，可以看看是不是AE中的色彩空间设的不对。
+
+## 兼容性
+
+对于不支持的这些格式的浏览器，可以通过`<source>`标签中的`error`事件进行相应的兜底处理。资料1中提供了部分环境的兼容情况。但我实测iOS 14也是不支持的。
+
+---
+
+参考资料：
+
+1. https://transparent-videos-for-all.vercel.app/
+
+2. https://yordan-stoyanov.medium.com/how-to-export-a-video-with-a-transparent-background-for-different-browsers-856a6b6d1ba0
+
+实用工具：
+
+1. 测试当前浏览器是否支持指定的MIME类型 https://cconcolato.github.io/media-mime-support/#other_video_codecs
