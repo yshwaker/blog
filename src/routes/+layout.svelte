@@ -1,5 +1,13 @@
 <script lang="ts">
   import '../app.css'
+  import { onMount } from 'svelte'
+  import { inject } from '@vercel/analytics'
+
+  onMount(() => {
+    if (import.meta.env.PROD) {
+      inject()
+    }
+  })
 </script>
 
 <svelte:head>
