@@ -25,6 +25,6 @@
   <slot />
   
   <footer class="mt-28 text-gray-500">
-    All rights reserved © Shio Y. 2023
+    All rights reserved © Shio Y. 2025
   </footer>
 </div>
