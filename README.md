@@ -1,9 +1,10 @@
 # Personal Blog
 
-A personal blog built with React, TanStack Start, TanStack Router, Tailwind CSS v4, and deployed through Cloudflare Workers.
+A personal blog built with React, TanStack Start, TanStack Router, Tailwind CSS v4, Vite+, and deployed through Cloudflare Workers.
 
 ## Features
 
+- **Vite+** - Unified dev/build/check/test command surface for the Vite toolchain.
 - **React + TanStack Start** - SSR-capable React framework powered by TanStack Router.
 - **Cloudflare Workers** - Deployment configured through the Cloudflare Vite plugin and Wrangler.
 - **Tailwind CSS v4** - Utility styling with the Typography plugin for posts.
@@ -14,16 +15,19 @@ A personal blog built with React, TanStack Start, TanStack Router, Tailwind CSS 
 
 - Node.js 22+
 - pnpm 9.5.0+
+- Vite+ `vp` CLI
 - Cloudflare API token for deployment
 
 ## Commands
 
 ```bash
-pnpm install
-pnpm dev
-pnpm build
-pnpm preview
-pnpm run deploy
+vp install
+vp dev
+vp check
+vp test
+vp build
+vp preview
+vp run deploy
 ```
 
 For deployment from a non-interactive shell, set `CLOUDFLARE_API_TOKEN` before running `pnpm run deploy`.

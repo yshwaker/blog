@@ -7,9 +7,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 
-export type MarkdownPart =
-  | { type: 'html'; html: string }
-  | { type: 'kmp'; demo: 1 | 2 }
+export type MarkdownPart = { type: 'html'; html: string } | { type: 'kmp'; demo: 1 | 2 }
 
 const kmpPattern = /<KMP\s+demo=\{([12])\}\s*\/>/g
 

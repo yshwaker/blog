@@ -103,12 +103,6 @@ function SecondDemo() {
   )
 }
 
-function Cell({
-  children,
-  className = '',
-}: {
-  children: ReactNode
-  className?: string
-}) {
+function Cell({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`${cellClass} ${className}`}>{children}</div>
 }

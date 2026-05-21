@@ -2,28 +2,16 @@
   "name": "shio-blog",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build && tsc --noEmit",
-    "preview": "vite preview",
-    "deploy": "pnpm run build && wrangler deploy",
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
+    "deploy": "vp build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "check": "tsc --noEmit",
-    "lint": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.37.2",
-    "@tailwindcss/postcss": "^4.1.12",
-    "@tailwindcss/typography": "0.5.16",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
-    "postcss": "^8.4.25",
-    "tailwindcss": "^4.1.12",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.13",
-    "wrangler": "^4.93.0"
+    "check": "vp check",
+    "lint": "vp lint",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.6",
@@ -40,13 +28,27 @@
     "remark-rehype": "^11.1.2",
     "unified": "^11.0.5"
   },
-  "type": "module",
-  "engines": {
-    "node": ">=22.0.0"
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.37.2",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@tailwindcss/typography": "0.5.16",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "postcss": "^8.4.25",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^6.0.3",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "^4.93.0"
   },
   "prettier": {
-    "singleQuote": true,
-    "semi": false
+    "semi": false,
+    "singleQuote": true
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }

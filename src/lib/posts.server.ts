@@ -34,15 +34,17 @@ const posts: PostWithContent[] = Object.entries(postModules)
       return []
     }
 
-    return [{
-      slug,
-      title: frontmatter.title,
-      date: frontmatter.date,
-      updatedOn: frontmatter.updatedOn,
-      summary: frontmatter.summary ?? '',
-      draft: frontmatter.draft,
-      content: normalizeMdsvexContent(content),
-    }]
+    return [
+      {
+        slug,
+        title: frontmatter.title,
+        date: frontmatter.date,
+        updatedOn: frontmatter.updatedOn,
+        summary: frontmatter.summary ?? '',
+        draft: frontmatter.draft,
+        content: normalizeMdsvexContent(content),
+      },
+    ]
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 

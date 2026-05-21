@@ -39,12 +39,7 @@ function Post() {
             return <KMP key={index} demo={part.demo} />
           }
 
-          return (
-            <div
-              key={index}
-              dangerouslySetInnerHTML={{ __html: part.html }}
-            />
-          )
+          return <div key={index} dangerouslySetInnerHTML={{ __html: part.html }} />
         })}
       </main>
 
@@ -60,8 +55,7 @@ function Post() {
             onClick={() => window.scrollTo(0, 0)}
             title="回到顶部"
           >
-            𝄇
-            <VisuallyHidden>回到顶部</VisuallyHidden>
+            𝄇<VisuallyHidden>回到顶部</VisuallyHidden>
           </button>
         </div>
       </div>

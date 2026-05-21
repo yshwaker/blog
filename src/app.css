@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 @config "../tailwind.config.js";
 
@@ -8,7 +8,7 @@
       scroll-behavior: smooth;
     }
   }
-  
+
   body {
     background-image: conic-gradient(from -0.75turn at center, #fff, 10deg, #fafafa, 350deg, #eee);
     background-position: 0px 0px;
@@ -24,9 +24,9 @@
 
 @layer utilities {
   .clip-hidden {
-    clip: rect(0, 0, 0, 0)
+    clip: rect(0, 0, 0, 0);
   }
-  
+
   .font-lora {
     font-family: 'Lora', serif;
   }

@@ -1,11 +1,5 @@
-/// <reference types="vite/client" />
-import {
-  HeadContent,
-  Link,
-  Outlet,
-  Scripts,
-  createRootRoute,
-} from '@tanstack/react-router'
+/// <reference types="vite-plus/client" />
+import { HeadContent, Link, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import '../app.css'
@@ -38,9 +32,7 @@ function RootComponent() {
 
         <Outlet />
 
-        <footer className="mt-28 text-gray-500">
-          All rights reserved © Shio Y. {currentYear}
-        </footer>
+        <footer className="mt-28 text-gray-500">All rights reserved © Shio Y. {currentYear}</footer>
       </div>
     </RootDocument>
   )

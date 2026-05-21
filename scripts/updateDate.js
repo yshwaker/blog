@@ -1,23 +1,34 @@
 import { promises as fs } from 'fs'
-import matter from 'gray-matter'
 
 const updateFrontmatter = async () => {
   const [, , ...mdFilePaths] = process.argv
 
-  mdFilePaths.forEach(async (path) => {
-    const file = matter.read(path)
-    const { data: currentFrontmatter } = file
+  await Promise.all(
+    mdFilePaths.map(async (path) => {
+      const fileContent = await fs.readFile(path, 'utf8')
+      const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---\n?/)
 
-    if (currentFrontmatter.draft !== true) {
-      const updatedFrontmatter = {
-        ...currentFrontmatter,
-        updatedOn: new Date().toISOString(),
+      if (!frontmatterMatch) {
+        return
       }
-      file.data = updatedFrontmatter
-      const updatedFileContent = matter.stringify(file)
-      fs.writeFile(path, updatedFileContent)
-    }
-  })
+
+      const frontmatter = frontmatterMatch[1]
+
+      if (/^draft:\s*true\s*$/m.test(frontmatter)) {
+        return
+      }
+
+      const updatedOn = `updatedOn: '${new Date().toISOString()}'`
+      const updatedFrontmatter = /^updatedOn:/m.test(frontmatter)
+        ? frontmatter.replace(/^updatedOn:.*$/m, updatedOn)
+        : `${frontmatter}\n${updatedOn}`
+
+      await fs.writeFile(
+        path,
+        fileContent.replace(frontmatterMatch[0], `---\n${updatedFrontmatter}\n---\n`),
+      )
+    }),
+  )
 }
 
-updateFrontmatter()
+await updateFrontmatter()
