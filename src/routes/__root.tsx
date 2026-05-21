@@ -25,6 +25,8 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <RootDocument>
       <div className="font-sans max-w-3xl mx-5vw md:mx-auto py-8">
@@ -37,7 +39,7 @@ function RootComponent() {
         <Outlet />
 
         <footer className="mt-28 text-gray-500">
-          All rights reserved © Shio Y. 2025
+          All rights reserved © Shio Y. {currentYear}
         </footer>
       </div>
     </RootDocument>
