@@ -1,90 +1,57 @@
----
-updatedOn: '2025-08-16T16:51:13.526Z'
----
 # Personal Blog
 
-A modern, fast, and clean personal blog built with SvelteKit and styled with Tailwind CSS v4. Features technical articles about web development, algorithms, and programming concepts.
+A personal blog built with React, TanStack Start, TanStack Router, Tailwind CSS v4, and deployed through Cloudflare Workers.
 
 ## Features
 
-- ⚡ **SvelteKit** - Modern web framework with SSG
-- 🎨 **Tailwind CSS v4** - Latest utility-first CSS framework
-- 📝 **MDX Support** - Write blog posts in Markdown with Svelte components
-- 🌙 **Typography Plugin** - Beautiful typographic styling for content
-- 🚀 **Static Generation** - Fast loading with pre-rendered pages
-- 📱 **Responsive Design** - Mobile-first responsive layout
-- 🔍 **SEO Optimized** - Meta tags and semantic HTML
-- 🖥️ **Interactive Components** - Custom Svelte components for algorithms
+- **React + TanStack Start** - SSR-capable React framework powered by TanStack Router.
+- **Cloudflare Workers** - Deployment configured through the Cloudflare Vite plugin and Wrangler.
+- **Tailwind CSS v4** - Utility styling with the Typography plugin for posts.
+- **Markdown posts** - Blog posts stay in `src/lib/posts/` and are rendered on the server.
+- **Interactive demos** - Post-specific React components, including the KMP visualization.
 
-## Tech Stack
+## Prerequisites
 
-- **Framework**: SvelteKit
-- **Styling**: Tailwind CSS v4 with Typography plugin
-- **Content**: MDX with mdsvex
-- **Language**: TypeScript
-- **Package Manager**: pnpm
-- **Node.js**: 22.x
-- **Build Output**: Static site in `/public`
-
-## Getting Started
-
-### Prerequisites
-- Node.js 22.x (see `.node-version`)
+- Node.js 22+
 - pnpm 9.5.0+
-
-### Development
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start development server
-pnpm dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) to view the blog.
-
-### Building
-
-```bash
-# Build for production
-pnpm build
-
-# Preview production build
-pnpm preview
-```
-
-The built site will be generated in the `/public` directory.
-
-## Content Management
-
-Blog posts are written in MDX format and stored in `/src/lib/posts/`. Each post requires:
-
-- `title` - Post title
-- `date` - Publication date
-- `summary` - Brief description
-- `updatedOn` (optional) - Last modified date
-
-## Project Structure
-
-```
-├── src/
-│   ├── lib/
-│   │   ├── posts/           # Blog posts (MDX)
-│   │   └── components/      # Svelte components
-│   ├── routes/              # SvelteKit routes
-│   └── app.css             # Global styles
-├── static/                  # Static assets
-├── public/                  # Built site (generated)
-└── scripts/                 # Build scripts
-```
+- Cloudflare API token for deployment
 
 ## Commands
 
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm preview      # Preview production build
-pnpm check        # Run Svelte type checking
-pnpm lint         # Run ESLint
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
+pnpm run deploy
+```
+
+For deployment from a non-interactive shell, set `CLOUDFLARE_API_TOKEN` before running `pnpm run deploy`.
+
+## Content
+
+Posts are stored as `.mdx` files in `src/lib/posts/`. Each post needs frontmatter:
+
+- `title`
+- `date`
+- `summary`
+- `updatedOn` optional
+- `draft` optional
+
+The markdown renderer supports the existing mdsvex-era post content and maps `<KMP demo={1} />` / `<KMP demo={2} />` to the React KMP component.
+
+## Project Structure
+
+```text
+src/
+  lib/
+    components/              React post components
+    posts/                   Blog post content
+    post-functions.ts        TanStack server functions
+    posts.server.ts          Server-only post loading
+    render-markdown.server.ts
+  routes/                    TanStack Router file routes
+  router.tsx                 Router factory
+static/                      Public assets served by Vite
+wrangler.jsonc               Cloudflare Workers config
 ```

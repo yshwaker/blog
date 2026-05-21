@@ -16,6 +16,8 @@ next-env.d.ts
 
 # production
 /build
+/dist
+/.wrangler
 
 # misc
 .DS_Store
